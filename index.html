@@ -35,12 +35,13 @@
             content: ''; position: absolute; left: 5px; top: 0; bottom: 0;
             width: 2px; background-color: #06b6d4; opacity: 0.5;
         }
+        /* Style for Image Modal (Lightbox) */
         #image-modal {
             backdrop-filter: blur(5px);
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-700 dark:bg-slate-950 dark:text-slate-300 font-sans antialiased transition-colors duration-300 relative">
+<body class="bg-slate-50 text-slate-700 dark:bg-slate-950 dark:text-slate-300 font-sans antialiased transition-colors duration-300 relative flex flex-col min-h-screen">
 
     <!-- Mobile Header -->
     <header class="lg:hidden fixed top-0 w-full bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow-sm z-50 flex justify-between items-center px-6 py-4 border-b border-slate-200 dark:border-slate-800">
@@ -66,24 +67,22 @@
         </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-content flex-grow">
         <!-- Hero Section -->
         <section id="hero" class="min-h-screen flex items-center px-8 lg:px-24">
             <div class="flex flex-col-reverse lg:flex-row items-center gap-12 w-full pt-20 lg:pt-0">
                 <div class="flex-1 text-center lg:text-left">
                     <p class="text-brand-600 dark:text-brand-400 font-bold tracking-widest uppercase mb-3 text-sm">MSc Robotics Student | CEO TorjunTech</p>
-                    <h1 class="text-4xl lg:text-6xl font-extrabold text-slate-900 dark:text-white mb-6 leading-tight">Yaqzhan Elkiya <br class="hidden lg:block"> Muhammad Shah</h1>
-                    <p class="text-lg text-slate-600 dark:text-slate-400 mb-6 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                    <h1 class="text-4xl lg:text-6xl font-extrabold text-slate-900 dark:text-white mb-2 leading-tight">Yaqzhan Elkiya <br class="hidden lg:block"> Muhammad Shah</h1>
+                    <p class="text-xl font-medium text-brand-500 dark:text-brand-400 mb-6 italic">The Engineer You Can Trust</p>
+                    
+                    <p class="text-lg text-slate-600 dark:text-slate-400 mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed">
                         Electronic and Automation Engineer experienced in embedded systems, industrial automation, and autonomous robotics. Bridging physical hardware with intelligent AI systems.
                     </p>
-                    <!-- Email Section -->
-                    <div class="flex items-center justify-center lg:justify-start gap-2 text-slate-500 dark:text-slate-400 font-medium mb-8">
-                        <i class="far fa-envelope text-brand-500"></i>
-                        <a href="mailto:yaqzhanelkiya01@gmail.com" class="hover:text-brand-500 transition">yaqzhanelkiya01@gmail.com</a>
-                    </div>
                     
                     <div class="flex flex-wrap justify-center lg:justify-start gap-4">
                         <a href="https://drive.google.com/file/d/1A-lJb2rFWGpT-n0yU_vUeR5TLDrqzGLc/view" target="_blank" class="px-6 py-3 rounded-full bg-brand-600 hover:bg-brand-500 text-white font-bold transition shadow-lg shadow-brand-500/30"><i class="fas fa-file-pdf mr-2"></i> Download CV</a>
+                        <a href="mailto:yaqzhanelkiya01@gmail.com" class="w-12 h-12 flex items-center justify-center rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-white hover:bg-brand-500 hover:text-white transition" title="Email Me"><i class="far fa-envelope text-xl"></i></a>
                         <a href="https://github.com/yqzelkiya" target="_blank" class="w-12 h-12 flex items-center justify-center rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-white hover:bg-brand-500 hover:text-white transition"><i class="fab fa-github text-xl"></i></a>
                         <a href="https://www.linkedin.com/in/elkiya-yaqzhan/" target="_blank" class="w-12 h-12 flex items-center justify-center rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-white hover:bg-brand-500 hover:text-white transition"><i class="fab fa-linkedin-in text-xl"></i></a>
                     </div>
@@ -104,7 +103,7 @@
                 <p class="text-slate-500 dark:text-slate-400">Curious in multidisciplinary fields - Electronics, AI, and Automation.</p>
             </div>
             <p class="text-slate-600 dark:text-slate-400 leading-relaxed max-w-4xl mb-12">
-                I am an Electronic and Automation Engineer pursuing an MSc in Robotics at The University of Manchester (LPDP Scholar). My research interests include automated semiconductor manufacturing, ROS 2 workspace integration, Hardware-in-the-Loop (HIL) simulation, Coverage Path Planning (CPP), Neural Network-based motor control, and CAN Bus architecture.
+                An engineer with 2 years of experience in robotics, automation, and software engineering, demonstrated by 9 awards, various projects, and research. Researched the development of electric vehicles (EVs), autonomous vehicles (AVs), and humanoid robots. Skilled in hardware-software co-design, automation implementation using Schneider PLCs and SCADA, and applied machine learning, including neural networks and computer vision for electric cars. Envisions improving social problems through technology.
             </p>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
                 <div class="bg-slate-50 dark:bg-slate-950 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 text-center flex flex-col items-center">
@@ -134,7 +133,7 @@
         <section id="skills" class="py-20 px-8 lg:px-24">
             <div class="mb-12">
                 <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-2"><span class="text-brand-500">#</span> Technical Skills</h2>
-                <p class="text-slate-500 dark:text-slate-400">Dynamically loaded from Google Sheets.</p>
+                <p class="text-slate-500 dark:text-slate-400">Academic and professional competencies.</p>
             </div>
             <div id="skills-container" class="grid md:grid-cols-2 gap-x-12 gap-y-8">
                 <div class="col-span-full text-brand-500 text-sm"><i class="fas fa-spinner fa-spin mr-2"></i> Loading skills...</div>
@@ -145,7 +144,7 @@
         <section id="resume" class="py-20 px-8 lg:px-24 bg-white dark:bg-slate-900 border-y border-slate-200 dark:border-slate-800">
             <div class="mb-12">
                 <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-2"><span class="text-brand-500">#</span> Resume</h2>
-                <p class="text-slate-500 dark:text-slate-400">Academic background and professional journey from Google Sheets.</p>
+                <p class="text-slate-500 dark:text-slate-400">Academic background and professional journey.</p>
             </div>
             <div class="grid lg:grid-cols-2 gap-12">
                 <div>
@@ -168,7 +167,7 @@
             <div class="mb-12 flex flex-col lg:flex-row lg:justify-between lg:items-end gap-6">
                 <div>
                     <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-2"><span class="text-brand-500">#</span> Portfolio</h2>
-                    <p class="text-slate-500 dark:text-slate-400">Dynamic showcase from Google Sheets.</p>
+                    <p class="text-slate-500 dark:text-slate-400">Dynamic showcase of my recent work.</p>
                 </div>
                 
                 <!-- Filter Buttons -->
@@ -219,6 +218,14 @@
                 </div>
             </div>
         </section>
+        
+        <!-- Acknowledgement Footer -->
+        <footer class="py-6 px-8 lg:px-24 bg-slate-100 dark:bg-slate-900 text-center text-sm text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-slate-800">
+            <p>
+                This portfolio website was developed with the assistance of AI tools. 
+                <br class="md:hidden"> Some project images are omitted due to confidentiality and licensing agreements.
+            </p>
+        </footer>
     </main>
 
     <!-- Modal Lightbox Image -->
