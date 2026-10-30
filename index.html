@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yaqzhan Elkiya | Robotics & Automation</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script>
@@ -39,13 +37,11 @@
 </head>
 <body class="bg-slate-50 text-slate-700 dark:bg-slate-950 dark:text-slate-300 font-sans antialiased transition-colors duration-300">
 
-    <!-- Mobile Header -->
     <header class="lg:hidden fixed top-0 w-full bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow-sm z-50 flex justify-between items-center px-6 py-4 border-b border-slate-200 dark:border-slate-800">
         <h1 class="font-bold text-xl text-brand-600 dark:text-brand-400">Yaqzhan Elkiya</h1>
         <button id="mobile-menu-btn" class="text-2xl text-slate-600 dark:text-slate-400"><i class="fas fa-bars"></i></button>
     </header>
 
-    <!-- Sidebar Navigation -->
     <nav id="sidebar" class="fixed top-0 left-0 h-screen w-64 lg:w-20 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-40 flex flex-col items-center py-8 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 shadow-xl lg:shadow-none">
         <div class="flex flex-col gap-6 w-full px-6 lg:px-0 mt-16 lg:mt-0 items-start lg:items-center">
             <a href="#hero" class="w-12 h-12 rounded-xl flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-brand-500 hover:text-white dark:hover:text-white transition group"><i class="fas fa-home text-lg"></i><span class="lg:hidden ml-4 font-medium text-sm">Home</span></a>
@@ -64,7 +60,6 @@
     </nav>
 
     <main class="main-content">
-        <!-- Hero Section -->
         <section id="hero" class="min-h-screen flex items-center px-8 lg:px-24">
             <div class="flex flex-col-reverse lg:flex-row items-center gap-12 w-full pt-20 lg:pt-0">
                 <div class="flex-1 text-center lg:text-left">
@@ -80,12 +75,12 @@
                     </div>
                 </div>
                 <div class="flex-shrink-0">
-                    <img src="https://ui-avatars.com/api/?name=Yaqzhan+Elkiya&background=06b6d4&color=fff&size=512" alt="Yaqzhan Elkiya" class="w-56 h-56 lg:w-80 lg:h-80 rounded-full border-4 border-brand-500/30 object-cover shadow-2xl shadow-brand-500/20">
+                    <!-- ID hero-avatar ditambahkan di sini, gambar default akan tertimpa otomatis jika ada data di Google Sheet -->
+                    <img id="hero-avatar" src="https://ui-avatars.com/api/?name=Yaqzhan+Elkiya&background=06b6d4&color=fff&size=512" alt="Yaqzhan Elkiya" class="w-56 h-56 lg:w-80 lg:h-80 rounded-full border-4 border-brand-500/30 object-cover shadow-2xl shadow-brand-500/20">
                 </div>
             </div>
         </section>
 
-        <!-- About & Facts Section -->
         <section id="about" class="py-20 px-8 lg:px-24 bg-white dark:bg-slate-900 border-y border-slate-200 dark:border-slate-800">
             <div class="mb-12">
                 <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-2"><span class="text-brand-500">#</span> About Me</h2>
@@ -118,7 +113,6 @@
             </div>
         </section>
 
-        <!-- Dynamic Skills Section -->
         <section id="skills" class="py-20 px-8 lg:px-24">
             <div class="mb-12">
                 <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-2"><span class="text-brand-500">#</span> Technical Skills</h2>
@@ -129,7 +123,6 @@
             </div>
         </section>
 
-        <!-- Dynamic Resume Section -->
         <section id="resume" class="py-20 px-8 lg:px-24 bg-white dark:bg-slate-900 border-y border-slate-200 dark:border-slate-800">
             <div class="mb-12">
                 <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-2"><span class="text-brand-500">#</span> Resume</h2>
@@ -151,15 +144,12 @@
             </div>
         </section>
 
-        <!-- Dynamic Portfolio Section with Filtering -->
         <section id="portfolio" class="py-20 px-8 lg:px-24">
             <div class="mb-12 flex flex-col lg:flex-row lg:justify-between lg:items-end gap-6">
                 <div>
                     <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-2"><span class="text-brand-500">#</span> Portfolio</h2>
                     <p class="text-slate-500 dark:text-slate-400">Dynamic showcase from Google Sheets.</p>
                 </div>
-                
-                <!-- Filter Buttons -->
                 <div class="flex flex-wrap gap-4 text-sm font-bold uppercase" id="portfolio-filters">
                     <button data-filter="ALL" class="filter-btn text-brand-500 border-b-2 border-brand-500 pb-1 cursor-pointer">ALL</button>
                     <button data-filter="Robotics" class="filter-btn text-slate-600 dark:text-slate-400 hover:text-brand-500 pb-1 cursor-pointer transition">Robotics</button>
@@ -167,8 +157,6 @@
                     <button data-filter="Software Eng" class="filter-btn text-slate-600 dark:text-slate-400 hover:text-brand-500 pb-1 cursor-pointer transition">Software Eng</button>
                 </div>
             </div>
-
-            <!-- Projects Grid -->
             <div id="projects-container" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div class="col-span-full text-center py-10">
                     <i class="fas fa-circle-notch fa-spin text-3xl text-brand-500"></i>
@@ -177,7 +165,6 @@
             </div>
         </section>
 
-        <!-- Contact Section -->
         <section id="contact" class="py-20 px-8 lg:px-24 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
             <div class="mb-12 text-center">
                 <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-2"><span class="text-brand-500">#</span> Contact</h2>
@@ -209,9 +196,7 @@
         </section>
     </main>
 
-    <!-- UI & API Logic Scripts -->
     <script>
-        // 1. Sidebar & Theme Toggle
         const mobileBtn = document.getElementById('mobile-menu-btn');
         const sidebar = document.getElementById('sidebar');
         mobileBtn.addEventListener('click', () => sidebar.classList.toggle('-translate-x-full'));
@@ -234,8 +219,18 @@
             }
         });
 
-        // 2. Fetch API Setup
         const sheetId = '1SmSOaXpi817iaOiYa5N5K-ZAycT9vFsFf9d2n6FHASY';
+
+        // Fetch Avatar Profile
+        fetch(`https://opensheet.elk.sh/${sheetId}/Profile%20%26%20Bio`)
+            .then(res => res.json())
+            .then(data => {
+                const profile = data[0]; 
+                const avatarLink = profile['Avatar URL'] || profile['Avatar Path'] || profile['Avatar/Picture Path']; 
+                if (avatarLink) {
+                    document.getElementById('hero-avatar').src = avatarLink;
+                }
+            }).catch(err => console.log("Avatar belum diatur di Sheet", err));
 
         // Fetch Skills
         fetch(`https://opensheet.elk.sh/${sheetId}/Skills Matrix`)
@@ -257,7 +252,7 @@
                 });
             }).catch(e => document.getElementById('skills-container').innerHTML = '<p class="text-red-500 col-span-full">Failed to load skills.</p>');
 
-        // Fetch Resume (Education & Experience)
+        // Fetch Resume
         fetch(`https://opensheet.elk.sh/${sheetId}/Resume`)
             .then(res => res.json())
             .then(data => {
@@ -282,7 +277,7 @@
                 document.getElementById('resume-exp').innerHTML = '<p class="text-red-500">Failed to load.</p>';
             });
 
-        // Fetch Projects & Filtering Logic
+        // Fetch Projects
         let allProjects = [];
         fetch(`https://opensheet.elk.sh/${sheetId}/Projects`)
             .then(res => res.json())
@@ -295,7 +290,6 @@
             const container = document.getElementById('projects-container');
             container.innerHTML = '';
             
-            // Filter logic
             const filtered = filter === 'ALL' 
                 ? allProjects 
                 : allProjects.filter(p => p.Category && p.Category.toUpperCase().includes(filter.toUpperCase()));
@@ -327,7 +321,6 @@
             });
         }
 
-        // Active State Button Filter
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 document.querySelectorAll('.filter-btn').forEach(b => {
@@ -336,7 +329,6 @@
                 });
                 e.target.classList.add('text-brand-500', 'border-b-2', 'border-brand-500');
                 e.target.classList.remove('text-slate-600', 'dark:text-slate-400');
-                
                 renderProjects(e.target.dataset.filter);
             });
         });
