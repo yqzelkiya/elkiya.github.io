@@ -3,27 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elkiya | Robotics & Automation</title>
+    <title>Yaqzhan Elkiya | Robotics & Automation</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Tailwind Config for Dark Mode -->
     <script>
         tailwind.config = {
-            darkMode: 'class', // Mengaktifkan dark mode berbasis class
+            darkMode: 'class',
             theme: {
                 extend: {
-                    colors: {
-                        brand: { 400: '#22d3ee', 500: '#06b6d4', 600: '#0891b2' }
-                    }
+                    colors: { brand: { 400: '#3b82f6', 500: '#2563eb', 600: '#1d4ed8' } },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] }
                 }
             }
         }
     </script>
 
-    <!-- Script to check initial theme to prevent flicker -->
+    <!-- Theme Logic -->
     <script>
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
@@ -31,177 +29,411 @@
             document.documentElement.classList.remove('dark');
         }
     </script>
-</head>
-<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-200 font-sans antialiased transition-colors duration-300">
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm border-b border-slate-200 dark:border-slate-800 z-50 transition-colors duration-300">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-xl font-bold text-brand-600 dark:text-brand-400">Yaqzhan Elkiya</a>
+    <style>
+        /* Custom Styles for Sidebar and Layout */
+        .sidebar { transition: all 0.3s ease; }
+        @media (min-width: 1024px) {
+            .main-content { margin-left: 80px; }
+            .sidebar { width: 80px; }
+        }
+        /* Vertical Timeline Line */
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #3b82f6; /* brand color */
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-700 dark:bg-slate-900 dark:text-slate-300 font-sans antialiased">
+
+    <!-- Mobile Header (Visible only on small screens) -->
+    <header class="lg:hidden fixed top-0 w-full bg-white dark:bg-slate-950 shadow-sm z-50 flex justify-between items-center px-4 py-3">
+        <h1 class="font-bold text-lg text-slate-800 dark:text-white">Yaqzhan Elkiya</h1>
+        <button id="mobile-menu-btn" class="text-2xl text-slate-600 dark:text-slate-400"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <!-- Sidebar Navigation (Left Side) -->
+    <nav id="sidebar" class="sidebar fixed top-0 left-0 h-screen bg-white dark:bg-slate-950 border-r border-slate-200 dark:border-slate-800 z-40 flex flex-col items-center py-8 transform -translate-x-full lg:translate-x-0 w-64 lg:w-20">
+        
+        <div class="flex flex-col gap-6 w-full px-4 lg:px-0 items-start lg:items-center mt-12 lg:mt-0">
+            <a href="#hero" class="nav-link w-12 h-12 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-brand-500 hover:text-white transition group" title="Home">
+                <i class="fas fa-home"></i>
+                <span class="lg:hidden ml-4 text-sm font-medium">Home</span>
+            </a>
+            <a href="#about" class="nav-link w-12 h-12 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-brand-500 hover:text-white transition group" title="About">
+                <i class="far fa-user"></i>
+                <span class="lg:hidden ml-4 text-sm font-medium">About</span>
+            </a>
+            <a href="#resume" class="nav-link w-12 h-12 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-brand-500 hover:text-white transition group" title="Resume">
+                <i class="far fa-file-alt"></i>
+                <span class="lg:hidden ml-4 text-sm font-medium">Resume</span>
+            </a>
+            <a href="#portfolio" class="nav-link w-12 h-12 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-brand-500 hover:text-white transition group" title="Portfolio">
+                <i class="fas fa-layer-group"></i>
+                <span class="lg:hidden ml-4 text-sm font-medium">Portfolio</span>
+            </a>
+            <a href="#contact" class="nav-link w-12 h-12 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-brand-500 hover:text-white transition group" title="Contact">
+                <i class="far fa-envelope"></i>
+                <span class="lg:hidden ml-4 text-sm font-medium">Contact</span>
+            </a>
             
-            <div class="flex items-center space-x-6">
-                <div class="hidden md:flex space-x-6 text-sm font-medium">
-                    <a href="#about" class="hover:text-brand-600 dark:hover:text-brand-400 transition">About</a>
-                    <a href="#skills" class="hover:text-brand-600 dark:hover:text-brand-400 transition">Skills</a>
-                    <a href="#projects" class="hover:text-brand-600 dark:hover:text-brand-400 transition">Projects</a>
-                </div>
-                
-                <!-- Theme Toggle Button -->
-                <button id="theme-toggle" type="button" class="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg text-sm p-2 transition">
-                    <i id="theme-toggle-dark-icon" class="fas fa-moon hidden text-lg"></i>
-                    <i id="theme-toggle-light-icon" class="fas fa-sun hidden text-lg"></i>
-                </button>
-            </div>
+            <!-- Dark Mode Toggle -->
+            <button id="theme-toggle" class="mt-auto w-12 h-12 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-brand-500 transition">
+                <i id="theme-toggle-dark-icon" class="fas fa-moon hidden text-lg"></i>
+                <i id="theme-toggle-light-icon" class="fas fa-sun hidden text-lg"></i>
+            </button>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="hero" class="pt-32 pb-20 px-6 max-w-6xl mx-auto flex flex-col items-center text-center">
-        <!-- Ganti dengan link foto aslimu -->
-        <img src="https://ui-avatars.com/api/?name=Yaqzhan+Elkiya&background=0D8ABC&color=fff&size=256" alt="Yaqzhan Elkiya" class="w-40 h-40 md:w-48 md:h-48 rounded-full border-4 border-brand-500/30 object-cover shadow-xl mb-6">
+    <!-- Main Content Area -->
+    <main class="main-content">
         
-        <p class="text-brand-600 dark:text-brand-400 font-bold text-sm tracking-widest uppercase mb-3">MSc Robotics Student | CEO TorjunTech</p>
-        <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 dark:text-white mb-6 tracking-tight">Yaqzhan Elkiya <br class="hidden md:block"> Muhammad Shah</h1>
-        
-        <p class="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
-            Bridging physical hardware with intelligent systems. Experienced in embedded systems, industrial automation, and autonomous robotic platforms.
-        </p>
-        
-        <div class="flex flex-wrap justify-center gap-4">
-            <a href="https://drive.google.com/file/d/1A-lJb2rFWGpT-n0yU_vUeR5TLDrqzGLc/view" target="_blank" class="px-6 py-3 rounded-full bg-brand-600 hover:bg-brand-500 text-white font-bold transition shadow-lg shadow-brand-500/30">
-                <i class="fas fa-file-pdf mr-2"></i> Download Resume
-            </a>
-            <a href="https://github.com/yqzelkiya" target="_blank" class="px-6 py-3 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-white hover:bg-slate-300 dark:hover:bg-slate-700 font-medium transition">
-                <i class="fab fa-github mr-2"></i> GitHub
-            </a>
-            <a href="https://www.linkedin.com/in/elkiya-yaqzhan/" target="_blank" class="px-6 py-3 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-white hover:bg-slate-300 dark:hover:bg-slate-700 font-medium transition">
-                <i class="fab fa-linkedin mr-2"></i> LinkedIn
-            </a>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="py-16 bg-white dark:bg-slate-900/50 border-y border-slate-200 dark:border-slate-800 transition-colors duration-300">
-        <div class="max-w-4xl mx-auto px-6">
-            <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6 text-center"><span class="text-brand-600 dark:text-brand-400">#</span> About Me</h2>
-            <div class="text-slate-600 dark:text-slate-400 leading-loose space-y-4 text-justify">
-                <p>
-                    I am an Electronic and Automation Engineer with over 2 years of industry and research experience. Currently, I am pursuing an MSc in Robotics at The University of Manchester as a fully-funded LPDP Scholar. 
-                </p>
-                <p>
-                    My core focus lies in <strong>Robotics, Automation, and Software</strong>. My research interests include automated semiconductor manufacturing, ROS 2 workspace integration, Hardware-in-the-Loop (HIL) simulation, Coverage Path Planning (CPP), Neural Network-based motor control, and CAN Bus architecture.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills" class="py-20 px-6 max-w-6xl mx-auto">
-        <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-10 text-center"><span class="text-brand-600 dark:text-brand-400">#</span> Technical Skills</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-300">
-                <div class="text-brand-500 text-3xl mb-4"><i class="fas fa-robot"></i></div>
-                <h4 class="text-slate-900 dark:text-white font-bold mb-3">Robotics & Software</h4>
-                <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">ROS/ROS 2, Nav2, MoveIt 2, C/C++, Python, OpenCV, Neural Networks.</p>
-            </div>
-            <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-300">
-                <div class="text-brand-500 text-3xl mb-4"><i class="fas fa-microchip"></i></div>
-                <h4 class="text-slate-900 dark:text-white font-bold mb-3">Embedded & Hardware</h4>
-                <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">STM32, ARM Cortex-M, CAN Bus, Modbus RS485, PCB Design (KiCad), HIL.</p>
-            </div>
-            <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-300">
-                <div class="text-brand-500 text-3xl mb-4"><i class="fas fa-industry"></i></div>
-                <h4 class="text-slate-900 dark:text-white font-bold mb-3">Industrial Automation</h4>
-                <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Schneider & Siemens PLCs, SCADA, Yokogawa DCS, Power Management.</p>
-            </div>
-            <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-300">
-                <div class="text-brand-500 text-3xl mb-4"><i class="fas fa-drafting-compass"></i></div>
-                <h4 class="text-slate-900 dark:text-white font-bold mb-3">CAD & Simulation</h4>
-                <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Autodesk Inventor, Fusion 360, Gazebo, RViz, Linux/Ubuntu.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section (Dynamic from Google Sheets) -->
-    <section id="projects" class="py-20 bg-slate-100 dark:bg-slate-900/40 border-t border-slate-200 dark:border-slate-800 transition-colors duration-300">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-2"><span class="text-brand-600 dark:text-brand-400">#</span> Featured Projects</h2>
-                <p class="text-slate-500 dark:text-slate-400 text-sm">Dynamically loaded from Google Sheets CMS.</p>
-            </div>
+        <!-- Hero Section (Full Height Background Image Layout) -->
+        <!-- GANTI URL BACKGROUND DI BAWAH DENGAN LINK FOTOMU YG DI PABRIK (lh3 Google Drive) -->
+        <section id="hero" class="h-screen relative flex flex-col justify-center px-8 lg:px-20 bg-cover bg-center bg-no-repeat" style="background-image: url('https://ui-avatars.com/api/?name=Hero+Background&background=cbd5e1');">
+            <!-- Overlay agar teks terbaca -->
+            <div class="absolute inset-0 bg-white/70 dark:bg-slate-900/80"></div>
             
-            <div id="projects-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Loading State -->
-                <div class="col-span-full text-center py-10">
-                    <i class="fas fa-circle-notch fa-spin text-3xl text-brand-500 mb-3"></i>
-                    <p class="text-slate-500 dark:text-slate-400">Loading projects...</p>
+            <div class="relative z-10 max-w-3xl mt-16 lg:mt-0">
+                <h1 class="text-4xl md:text-6xl font-bold text-slate-800 dark:text-white mb-4">Yaqzhan Elkiya Muhammad Shah, S.T</h1>
+                <p class="text-xl md:text-2xl text-slate-600 dark:text-slate-300 font-medium mb-8">
+                    I'm <span class="text-brand-500 border-b-2 border-brand-500">Embedded System Engi</span>
+                </p>
+                <div class="flex gap-4 text-xl">
+                    <a href="https://github.com/yqzelkiya" class="text-slate-600 dark:text-slate-400 hover:text-brand-500"><i class="fab fa-github"></i></a>
+                    <a href="#" class="text-slate-600 dark:text-slate-400 hover:text-brand-500"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/elkiya-yaqzhan/" class="text-slate-600 dark:text-slate-400 hover:text-brand-500"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Footer -->
-    <footer class="py-8 text-center bg-white dark:bg-slate-950 text-slate-500 text-sm border-t border-slate-200 dark:border-slate-800 transition-colors duration-300">
-        &copy; 2026 Yaqzhan Elkiya Muhammad Shah. <br> Built for AERO62520 Robotic Systems Design Project.
-    </footer>
+        <!-- About Section -->
+        <section id="about" class="py-16 px-6 lg:px-20 bg-white dark:bg-slate-950">
+            <!-- Section Title -->
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold text-slate-800 dark:text-white uppercase tracking-widest relative pb-4 inline-block">
+                    About
+                    <span class="absolute bottom-0 left-0 w-12 h-1 bg-brand-500"></span>
+                </h2>
+            </div>
+            
+            <p class="text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
+                Electronic engineer expertised in embedded system, automation and machine learning proven by previous awards and research. Experienced in developing electric vehicles (EVs), autonomous vehicles (AVs), and humanoid robots. A person with interest in social and civilization movement with touch of technology.
+            </p>
 
-    <!-- Logic Fetch Data dari Google Sheet -->
-    <script>
-        const sheetId = '1SmSOaXpi817iaOiYa5N5K-ZAycT9vFsFf9d2n6FHASY';
-        const apiUrl = `https://opensheet.elk.sh/${sheetId}/Projects`;
+            <div class="flex flex-col lg:flex-row gap-10">
+                <!-- GANTI LINK FOTO WISUDA DI BAWAH (lh3 Google Drive) -->
+                <div class="lg:w-1/3">
+                    <img src="https://ui-avatars.com/api/?name=Graduation+Photo&background=cbd5e1&size=512" alt="Graduation" class="w-full h-auto shadow-md">
+                </div>
+                <div class="lg:w-2/3">
+                    <ul class="space-y-4 text-slate-700 dark:text-slate-300">
+                        <li class="flex items-start"><i class="fas fa-chevron-right text-brand-500 mt-1 mr-3"></i> <strong>Education:</strong> &nbsp; Bachelor of Electrical Engineering, Institut Teknologi Sepuluh Nopember, Indonesia</li>
+                        <li class="flex items-start"><i class="fas fa-chevron-right text-brand-500 mt-1 mr-3"></i> <strong>Phone:</strong> &nbsp; (+62)81216556595</li>
+                        <li class="flex items-start"><i class="fas fa-chevron-right text-brand-500 mt-1 mr-3"></i> <strong>Email:</strong> &nbsp; yaqzhanelkiya01@gmail.com</li>
+                    </ul>
+                    <p class="mt-6 text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Skilled and persuasive communication with ability to critically analyze problems and curiosity to learn something new in independently and collaboratively.
+                    </p>
+                </div>
+            </div>
 
-        fetch(apiUrl)
-            .then(response => response.json())
-            .then(data => {
-                const container = document.getElementById('projects-container');
-                container.innerHTML = ''; // Clear loading
+            <!-- Facts Subsection -->
+            <div class="mt-20">
+                <h2 class="text-3xl font-bold text-slate-800 dark:text-white uppercase tracking-widest relative pb-4 inline-block mb-6">
+                    Facts
+                    <span class="absolute bottom-0 left-0 w-12 h-1 bg-brand-500"></span>
+                </h2>
+                <p class="text-slate-600 dark:text-slate-400 mb-8">Curious in multidisciplinary fields to integrate technology - particularly electronics, AI, and social movement.</p>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                    <div>
+                        <div class="w-16 h-16 rounded-full bg-brand-500 text-white flex items-center justify-center text-2xl mx-auto mb-4"><i class="far fa-smile"></i></div>
+                        <h4 class="text-4xl font-bold text-slate-800 dark:text-white">5</h4>
+                        <p class="text-sm text-slate-500">Projects</p>
+                    </div>
+                    <div>
+                        <div class="w-16 h-16 rounded-full bg-brand-500 text-white flex items-center justify-center text-2xl mx-auto mb-4"><i class="far fa-file-alt"></i></div>
+                        <h4 class="text-4xl font-bold text-slate-800 dark:text-white">4</h4>
+                        <p class="text-sm text-slate-500">Licenses & certifications</p>
+                    </div>
+                    <div>
+                        <div class="w-16 h-16 rounded-full bg-brand-500 text-white flex items-center justify-center text-2xl mx-auto mb-4"><i class="fas fa-award"></i></div>
+                        <h4 class="text-4xl font-bold text-slate-800 dark:text-white">9</h4>
+                        <p class="text-sm text-slate-500">Honors & Awards</p>
+                    </div>
+                    <div>
+                        <div class="w-16 h-16 rounded-full bg-brand-500 text-white flex items-center justify-center text-2xl mx-auto mb-4"><i class="fas fa-desktop"></i></div>
+                        <h4 class="text-4xl font-bold text-slate-800 dark:text-white">2</h4>
+                        <p class="text-sm text-slate-500">Experiences</p>
+                    </div>
+                </div>
+            </div>
 
-                data.forEach(project => {
-                    const imageSrc = project['Direct Image URL (lh3)'] || 'https://via.placeholder.com/600x400/cbd5e1/475569?text=No+Image';
-                    
-                    const card = document.createElement('div');
-                    card.className = 'bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-lg transition duration-300 flex flex-col group';
-                    card.innerHTML = `
-                        <div class="overflow-hidden h-52 relative">
-                            <img src="${imageSrc}" alt="${project['Project Title']}" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500">
+            <!-- Skills Subsection (Progress Bars) -->
+            <div class="mt-20">
+                <h2 class="text-3xl font-bold text-slate-800 dark:text-white uppercase tracking-widest relative pb-4 inline-block mb-10">
+                    Skills
+                    <span class="absolute bottom-0 left-0 w-12 h-1 bg-brand-500"></span>
+                </h2>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Skill 1 -->
+                    <div>
+                        <div class="flex justify-between text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
+                            <span>ROS</span><span>85%</span>
                         </div>
-                        <div class="p-6 flex flex-col flex-grow">
-                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">${project['Project Title']}</h3>
-                            <p class="text-slate-600 dark:text-slate-400 text-sm mb-5 flex-grow">${project['Short Description']}</p>
-                            <div class="flex flex-wrap gap-2 mb-5">
-                                <span class="text-xs bg-slate-100 dark:bg-slate-800 text-brand-600 dark:text-brand-400 font-medium px-2.5 py-1 rounded-full border border-slate-200 dark:border-slate-700">${project['Key Tech']}</span>
-                            </div>
-                            ${project['External Link'] ? `<a href="${project['External Link']}" target="_blank" class="text-brand-600 dark:text-brand-400 text-sm font-bold hover:underline inline-flex items-center">View Project <i class="fas fa-arrow-right ml-2 text-xs"></i></a>` : ''}
+                        <div class="w-full bg-slate-200 dark:bg-slate-700 h-2">
+                            <div class="bg-brand-500 h-2" style="width: 85%"></div>
                         </div>
-                    `;
-                    container.appendChild(card);
-                });
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-                document.getElementById('projects-container').innerHTML = '<p class="text-red-500 col-span-full">Failed to load projects. Check Google Sheet permissions.</p>';
-            });
-    </script>
+                    </div>
+                    <!-- Skill 2 -->
+                    <div>
+                        <div class="flex justify-between text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
+                            <span>MACHINE LEARNING</span><span>70%</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-700 h-2">
+                            <div class="bg-brand-500 h-2" style="width: 70%"></div>
+                        </div>
+                    </div>
+                    <!-- Skill 3 -->
+                    <div>
+                        <div class="flex justify-between text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
+                            <span>EAGLE, KICAD, EASYEDA</span><span>90%</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-700 h-2">
+                            <div class="bg-brand-500 h-2" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <!-- Skill 4 -->
+                    <div>
+                        <div class="flex justify-between text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
+                            <span>AUTOCAD, INVENTOR, FUSION 360</span><span>60%</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-700 h-2">
+                            <div class="bg-brand-500 h-2" style="width: 60%"></div>
+                        </div>
+                    </div>
+                    <!-- Skill 5 -->
+                    <div>
+                        <div class="flex justify-between text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
+                            <span>PROGRAMMING LANGUAGE (C, C++, PYTHON)</span><span>90%</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-700 h-2">
+                            <div class="bg-brand-500 h-2" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <!-- Skill 6 -->
+                    <div>
+                        <div class="flex justify-between text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
+                            <span>COMPUTER VISION</span><span>85%</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-700 h-2">
+                            <div class="bg-brand-500 h-2" style="width: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <!-- Logic Dark Mode Toggle -->
+        <!-- Resume Section (Vertical Timeline) -->
+        <section id="resume" class="py-16 px-6 lg:px-20 bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
+            <div class="mb-12 text-center lg:text-left">
+                <h2 class="text-3xl font-bold text-slate-800 dark:text-white uppercase tracking-widest relative pb-4 inline-block">
+                    Resume
+                    <span class="absolute bottom-0 left-0 lg:left-0 w-12 h-1 bg-brand-500"></span>
+                </h2>
+                <p class="text-slate-600 dark:text-slate-400 mt-4">I am also in some other things like event organization, project, lab research, and competition.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-10">
+                
+                <!-- Left Column (Education) -->
+                <div>
+                    <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-6">Education</h3>
+                    <div class="relative timeline-line pl-6">
+                        <!-- Item 1 -->
+                        <div class="mb-10 relative">
+                            <div class="w-4 h-4 rounded-full bg-white dark:bg-slate-900 border-2 border-brand-500 absolute -left-[30px] top-1"></div>
+                            <h4 class="text-lg font-bold text-brand-600 dark:text-brand-400 uppercase">BACHELOR OF & ELECTRICAL ENGINEERING</h4>
+                            <div class="bg-slate-200 dark:bg-slate-800 inline-block px-3 py-1 rounded text-sm font-semibold text-slate-700 dark:text-slate-300 my-2">2019 - 2024</div>
+                            <p class="italic text-slate-600 dark:text-slate-400 mb-2">Institut Teknologi Sepuluh Nopember (ITS)</p>
+                            <p class="text-slate-600 dark:text-slate-400">Specialization of Electronics Key Coursework: Embedded system, machine learning, autonomous and humanoid robot, machine vision, VLSI Design, electronic control system. Researched in electronic control of autonomous car using PID-neural network.</p>
+                        </div>
+                        <!-- Item 2 -->
+                        <div class="mb-10 relative">
+                            <div class="w-4 h-4 rounded-full bg-white dark:bg-slate-900 border-2 border-brand-500 absolute -left-[30px] top-1"></div>
+                            <h4 class="text-lg font-bold text-brand-600 dark:text-brand-400 uppercase">SENIOR HIGH SCHOOL & SCIENCE MAJOR</h4>
+                            <div class="bg-slate-200 dark:bg-slate-800 inline-block px-3 py-1 rounded text-sm font-semibold text-slate-700 dark:text-slate-300 my-2">2016 - 2019</div>
+                            <p class="italic text-slate-600 dark:text-slate-400 mb-2">Amanatul Ummah International Standard School</p>
+                            <p class="text-slate-600 dark:text-slate-400">a leader of Andromeda robotic team developed an underwater ROV for ASEAN MATE ROV 2018.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column (Experience) -->
+                <div>
+                    <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-6">Professional Experience</h3>
+                    <div class="relative timeline-line pl-6">
+                        <!-- Item 1 -->
+                        <div class="mb-10 relative">
+                            <div class="w-4 h-4 rounded-full bg-white dark:bg-slate-900 border-2 border-brand-500 absolute -left-[30px] top-1"></div>
+                            <h4 class="text-lg font-bold text-brand-600 dark:text-brand-400 uppercase">PT. SOLUSI TEKNOLOGI BERKREASI</h4>
+                            <div class="bg-slate-200 dark:bg-slate-800 inline-block px-3 py-1 rounded text-sm font-semibold text-slate-700 dark:text-slate-300 my-2">2024 - Present</div>
+                            <p class="italic text-slate-600 dark:text-slate-400 mb-2">Automation Engineer</p>
+                            <ul class="list-disc ml-5 text-slate-600 dark:text-slate-400 space-y-1">
+                                <li>As a official partner of Schneider, I researched and designed the program of PLC Schneider M221 and HMI by Vijeo Designer. The program I conducted are HVAC in Vertical Hospital Makassar and Data Center projects</li>
+                            </ul>
+                        </div>
+                        <!-- Item 2 -->
+                        <div class="mb-10 relative">
+                            <div class="w-4 h-4 rounded-full bg-white dark:bg-slate-900 border-2 border-brand-500 absolute -left-[30px] top-1"></div>
+                            <h4 class="text-lg font-bold text-brand-600 dark:text-brand-400 uppercase">PT. DAYASA ARIA PRIMA</h4>
+                            <div class="bg-slate-200 dark:bg-slate-800 inline-block px-3 py-1 rounded text-sm font-semibold text-slate-700 dark:text-slate-300 my-2">2023 - 2024</div>
+                            <p class="italic text-slate-600 dark:text-slate-400 mb-2">Energy - Electrical Engineer</p>
+                            <ul class="list-disc ml-5 text-slate-600 dark:text-slate-400 space-y-1">
+                                <li>Responsible in electrical processes and automation by PLC and DCS in turbines and boilers. Improved the system by auto startup Burner. Gas Turbine synchronization, Planintegrated vision, vibration sensor, gas detector, and CEMS.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Portfolio Section (Grid Layout) - Dynamic Fetch from Google Sheet -->
+        <section id="portfolio" class="py-16 px-6 lg:px-20 bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-800 dark:text-white uppercase tracking-widest relative pb-4 inline-block">
+                    Portfolio
+                    <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-brand-500"></span>
+                </h2>
+                <p class="text-slate-600 dark:text-slate-400 mt-4">I am looking forward to work with all partners around the world.</p>
+                
+                <!-- Filter Tabs (Visual only based on screenshot) -->
+                <div class="flex justify-center gap-6 mt-6 text-sm font-bold uppercase">
+                    <span class="text-brand-500 cursor-pointer">ALL</span>
+                    <span class="text-slate-600 dark:text-slate-400 hover:text-brand-500 cursor-pointer">ELECTRONICS</span>
+                    <span class="text-slate-600 dark:text-slate-400 hover:text-brand-500 cursor-pointer">AI</span>
+                    <span class="text-slate-600 dark:text-slate-400 hover:text-brand-500 cursor-pointer">ROBOTICS</span>
+                </div>
+            </div>
+
+            <!-- Dynamic Google Sheet Container -->
+            <div id="projects-container" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="col-span-full text-center py-10">
+                    <i class="fas fa-circle-notch fa-spin text-3xl text-brand-500"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-16 px-6 lg:px-20 bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-slate-800 dark:text-white uppercase tracking-widest relative pb-4 inline-block">
+                    Contact
+                    <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-brand-500"></span>
+                </h2>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-10">
+                
+                <!-- Contact Info -->
+                <div class="space-y-8">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 rounded-full bg-slate-200 dark:bg-slate-800 text-brand-500 flex items-center justify-center text-xl mr-4 hover:bg-brand-500 hover:text-white transition">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-bold text-slate-800 dark:text-white">Location:</h4>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">Sampang, East Java 69271</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 rounded-full bg-slate-200 dark:bg-slate-800 text-brand-500 flex items-center justify-center text-xl mr-4 hover:bg-brand-500 hover:text-white transition">
+                            <i class="far fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-bold text-slate-800 dark:text-white">Email:</h4>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">yaqzhanelkiya01@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 rounded-full bg-slate-200 dark:bg-slate-800 text-brand-500 flex items-center justify-center text-xl mr-4 hover:bg-brand-500 hover:text-white transition">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-bold text-slate-800 dark:text-white">Call:</h4>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">(+62)81216556595</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form (Visual Interface) -->
+                <div class="lg:col-span-2">
+                    <form class="space-y-4">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <input type="text" placeholder="Your Name" class="w-full px-4 py-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:border-brand-500">
+                            <input type="email" placeholder="Your Email" class="w-full px-4 py-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:border-brand-500">
+                        </div>
+                        <input type="text" placeholder="Subject" class="w-full px-4 py-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:border-brand-500">
+                        <textarea rows="5" placeholder="Message" class="w-full px-4 py-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:border-brand-500"></textarea>
+                        <div class="text-center">
+                            <button type="button" class="bg-brand-500 hover:bg-brand-600 text-white font-medium py-3 px-8 rounded-full transition">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-12 bg-white dark:bg-slate-950 text-center border-t border-slate-200 dark:border-slate-800">
+            <h2 class="text-3xl font-bold text-slate-800 dark:text-white mb-4">Yaqzhan Elkiya Muhammad Shah</h2>
+            <p class="text-slate-600 dark:text-slate-400 italic mb-8">If you have some project that would like to involve me or you want to recruit me on your team, feel free to contact me.</p>
+            
+            <div class="flex justify-center gap-3 mb-6">
+                <a href="#" class="w-10 h-10 rounded-full bg-brand-500 text-white flex items-center justify-center hover:bg-brand-600"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="w-10 h-10 rounded-full bg-brand-500 text-white flex items-center justify-center hover:bg-brand-600"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.linkedin.com/in/elkiya-yaqzhan/" class="w-10 h-10 rounded-full bg-brand-500 text-white flex items-center justify-center hover:bg-brand-600"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/yqzelkiya" class="w-10 h-10 rounded-full bg-brand-500 text-white flex items-center justify-center hover:bg-brand-600"><i class="fab fa-github"></i></a>
+            </div>
+            
+            <p class="text-sm text-slate-600 dark:text-slate-500">
+                &copy; Copyright <strong>MyResume</strong>. All Rights Reserved <br>
+                Designed for AERO62520 CPD (Inspired by BootstrapMade)
+            </p>
+        </footer>
+
+    </main>
+
+    <!-- Logic Script for Google Sheet Projects & Sidebar -->
     <script>
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
-        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+        // 1. Mobile Sidebar Logic
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const sidebar = document.getElementById('sidebar');
+        mobileBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+        });
 
-        // Set initial icon based on current theme
+        // 2. Theme Toggle Logic
+        const themeBtn = document.getElementById('theme-toggle');
+        const darkIcon = document.getElementById('theme-toggle-dark-icon');
+        const lightIcon = document.getElementById('theme-toggle-light-icon');
+
         if (document.documentElement.classList.contains('dark')) {
-            themeToggleLightIcon.classList.remove('hidden');
+            lightIcon.classList.remove('hidden');
         } else {
-            themeToggleDarkIcon.classList.remove('hidden');
+            darkIcon.classList.remove('hidden');
         }
 
-        themeToggleBtn.addEventListener('click', function() {
-            // Toggle icons
-            themeToggleDarkIcon.classList.toggle('hidden');
-            themeToggleLightIcon.classList.toggle('hidden');
-
-            // Toggle theme class and save to localStorage
+        themeBtn.addEventListener('click', () => {
+            darkIcon.classList.toggle('hidden');
+            lightIcon.classList.toggle('hidden');
             if (document.documentElement.classList.contains('dark')) {
                 document.documentElement.classList.remove('dark');
                 localStorage.setItem('color-theme', 'light');
@@ -210,7 +442,36 @@
                 localStorage.setItem('color-theme', 'dark');
             }
         });
-    </script>
 
+        // 3. Fetch Google Sheet Projects
+        const sheetId = '1SmSOaXpi817iaOiYa5N5K-ZAycT9vFsFf9d2n6FHASY';
+        const apiUrl = `https://opensheet.elk.sh/${sheetId}/Projects`;
+
+        fetch(apiUrl)
+            .then(res => res.json())
+            .then(data => {
+                const container = document.getElementById('projects-container');
+                container.innerHTML = ''; 
+
+                data.forEach(project => {
+                    const imgUrl = project['Direct Image URL (lh3)'] || 'https://via.placeholder.com/400x300/e2e8f0/64748b?text=No+Image';
+                    // Render image block mirip tema lama (hover effect)
+                    const item = document.createElement('div');
+                    item.className = 'group relative overflow-hidden bg-white dark:bg-slate-800 shadow-sm';
+                    item.innerHTML = `
+                        <img src="${imgUrl}" alt="${project['Project Title']}" class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 bg-white/90 dark:bg-slate-900/90 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition duration-300 p-4 text-center">
+                            <h4 class="text-lg font-bold text-slate-800 dark:text-white mb-2">${project['Project Title']}</h4>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 line-clamp-3">${project['Short Description']}</p>
+                        </div>
+                    `;
+                    container.appendChild(item);
+                });
+            })
+            .catch(err => {
+                console.error(err);
+                document.getElementById('projects-container').innerHTML = '<p class="text-red-500 col-span-full">Failed to load Portfolio.</p>';
+            });
+    </script>
 </body>
 </html>
