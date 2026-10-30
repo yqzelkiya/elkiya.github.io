@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yaqzhan Elkiya | Robotics & Automation</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script>
@@ -33,15 +35,21 @@
             content: ''; position: absolute; left: 5px; top: 0; bottom: 0;
             width: 2px; background-color: #06b6d4; opacity: 0.5;
         }
+        /* Style for Image Modal (Lightbox) */
+        #image-modal {
+            backdrop-filter: blur(5px);
+        }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-700 dark:bg-slate-950 dark:text-slate-300 font-sans antialiased transition-colors duration-300">
+<body class="bg-slate-50 text-slate-700 dark:bg-slate-950 dark:text-slate-300 font-sans antialiased transition-colors duration-300 relative">
 
+    <!-- Mobile Header -->
     <header class="lg:hidden fixed top-0 w-full bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow-sm z-50 flex justify-between items-center px-6 py-4 border-b border-slate-200 dark:border-slate-800">
         <h1 class="font-bold text-xl text-brand-600 dark:text-brand-400">Yaqzhan Elkiya</h1>
         <button id="mobile-menu-btn" class="text-2xl text-slate-600 dark:text-slate-400"><i class="fas fa-bars"></i></button>
     </header>
 
+    <!-- Sidebar Navigation -->
     <nav id="sidebar" class="fixed top-0 left-0 h-screen w-64 lg:w-20 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-40 flex flex-col items-center py-8 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 shadow-xl lg:shadow-none">
         <div class="flex flex-col gap-6 w-full px-6 lg:px-0 mt-16 lg:mt-0 items-start lg:items-center">
             <a href="#hero" class="w-12 h-12 rounded-xl flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-brand-500 hover:text-white dark:hover:text-white transition group"><i class="fas fa-home text-lg"></i><span class="lg:hidden ml-4 font-medium text-sm">Home</span></a>
@@ -60,27 +68,38 @@
     </nav>
 
     <main class="main-content">
+        <!-- Hero Section -->
         <section id="hero" class="min-h-screen flex items-center px-8 lg:px-24">
             <div class="flex flex-col-reverse lg:flex-row items-center gap-12 w-full pt-20 lg:pt-0">
                 <div class="flex-1 text-center lg:text-left">
                     <p class="text-brand-600 dark:text-brand-400 font-bold tracking-widest uppercase mb-3 text-sm">MSc Robotics Student | CEO TorjunTech</p>
                     <h1 class="text-4xl lg:text-6xl font-extrabold text-slate-900 dark:text-white mb-6 leading-tight">Yaqzhan Elkiya <br class="hidden lg:block"> Muhammad Shah</h1>
-                    <p class="text-lg text-slate-600 dark:text-slate-400 mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                    <p class="text-lg text-slate-600 dark:text-slate-400 mb-6 max-w-xl mx-auto lg:mx-0 leading-relaxed">
                         Electronic and Automation Engineer experienced in embedded systems, industrial automation, and autonomous robotics. Bridging physical hardware with intelligent AI systems.
                     </p>
+                    <!-- Tambahan Email Disini -->
+                    <div class="flex items-center justify-center lg:justify-start gap-2 text-slate-500 dark:text-slate-400 font-medium mb-8">
+                        <i class="far fa-envelope text-brand-500"></i>
+                        <a href="mailto:yaqzhanelkiya01@gmail.com" class="hover:text-brand-500 transition">yaqzhanelkiya01@gmail.com</a>
+                    </div>
+                    
                     <div class="flex flex-wrap justify-center lg:justify-start gap-4">
                         <a href="https://drive.google.com/file/d/1A-lJb2rFWGpT-n0yU_vUeR5TLDrqzGLc/view" target="_blank" class="px-6 py-3 rounded-full bg-brand-600 hover:bg-brand-500 text-white font-bold transition shadow-lg shadow-brand-500/30"><i class="fas fa-file-pdf mr-2"></i> Download CV</a>
                         <a href="https://github.com/yqzelkiya" target="_blank" class="w-12 h-12 flex items-center justify-center rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-white hover:bg-brand-500 hover:text-white transition"><i class="fab fa-github text-xl"></i></a>
                         <a href="https://www.linkedin.com/in/elkiya-yaqzhan/" target="_blank" class="w-12 h-12 flex items-center justify-center rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-white hover:bg-brand-500 hover:text-white transition"><i class="fab fa-linkedin-in text-xl"></i></a>
                     </div>
                 </div>
-                <div class="flex-shrink-0">
-                    <!-- ID hero-avatar ditambahkan di sini, gambar default akan tertimpa otomatis jika ada data di Google Sheet -->
-                    <img id="hero-avatar" src="https://ui-avatars.com/api/?name=Yaqzhan+Elkiya&background=06b6d4&color=fff&size=512" alt="Yaqzhan Elkiya" class="w-56 h-56 lg:w-80 lg:h-80 rounded-full border-4 border-brand-500/30 object-cover shadow-2xl shadow-brand-500/20">
+                <div class="flex-shrink-0 relative">
+                    <!-- Default Initial Avatar, will be replaced by script if GDrive link is valid -->
+                    <div id="avatar-container" class="w-56 h-56 lg:w-80 lg:h-80 rounded-full border-4 border-brand-500/30 overflow-hidden shadow-2xl shadow-brand-500/20 bg-brand-500 flex items-center justify-center text-white text-6xl font-bold">
+                        <img id="hero-avatar" src="" alt="Yaqzhan Elkiya" class="w-full h-full object-cover hidden">
+                        <span id="hero-initials">YE</span>
+                    </div>
                 </div>
             </div>
         </section>
 
+        <!-- About & Facts Section -->
         <section id="about" class="py-20 px-8 lg:px-24 bg-white dark:bg-slate-900 border-y border-slate-200 dark:border-slate-800">
             <div class="mb-12">
                 <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-2"><span class="text-brand-500">#</span> About Me</h2>
@@ -92,7 +111,7 @@
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
                 <div class="bg-slate-50 dark:bg-slate-950 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 text-center flex flex-col items-center">
                     <div class="w-12 h-12 rounded-full bg-brand-100 dark:bg-brand-900/30 text-brand-500 flex items-center justify-center text-xl mb-4"><i class="fas fa-project-diagram"></i></div>
-                    <h4 class="text-3xl font-bold text-slate-900 dark:text-white">5+</h4>
+                    <h4 class="text-3xl font-bold text-slate-900 dark:text-white">10+</h4>
                     <p class="text-sm text-slate-500 mt-1">Major Projects</p>
                 </div>
                 <div class="bg-slate-50 dark:bg-slate-950 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 text-center flex flex-col items-center">
@@ -113,6 +132,7 @@
             </div>
         </section>
 
+        <!-- Dynamic Skills Section -->
         <section id="skills" class="py-20 px-8 lg:px-24">
             <div class="mb-12">
                 <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-2"><span class="text-brand-500">#</span> Technical Skills</h2>
@@ -123,6 +143,7 @@
             </div>
         </section>
 
+        <!-- Dynamic Resume Section -->
         <section id="resume" class="py-20 px-8 lg:px-24 bg-white dark:bg-slate-900 border-y border-slate-200 dark:border-slate-800">
             <div class="mb-12">
                 <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-2"><span class="text-brand-500">#</span> Resume</h2>
@@ -144,12 +165,15 @@
             </div>
         </section>
 
+        <!-- Dynamic Portfolio Section with Filtering -->
         <section id="portfolio" class="py-20 px-8 lg:px-24">
             <div class="mb-12 flex flex-col lg:flex-row lg:justify-between lg:items-end gap-6">
                 <div>
                     <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-2"><span class="text-brand-500">#</span> Portfolio</h2>
                     <p class="text-slate-500 dark:text-slate-400">Dynamic showcase from Google Sheets.</p>
                 </div>
+                
+                <!-- Filter Buttons -->
                 <div class="flex flex-wrap gap-4 text-sm font-bold uppercase" id="portfolio-filters">
                     <button data-filter="ALL" class="filter-btn text-brand-500 border-b-2 border-brand-500 pb-1 cursor-pointer">ALL</button>
                     <button data-filter="Robotics" class="filter-btn text-slate-600 dark:text-slate-400 hover:text-brand-500 pb-1 cursor-pointer transition">Robotics</button>
@@ -157,6 +181,8 @@
                     <button data-filter="Software Eng" class="filter-btn text-slate-600 dark:text-slate-400 hover:text-brand-500 pb-1 cursor-pointer transition">Software Eng</button>
                 </div>
             </div>
+
+            <!-- Projects Grid -->
             <div id="projects-container" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div class="col-span-full text-center py-10">
                     <i class="fas fa-circle-notch fa-spin text-3xl text-brand-500"></i>
@@ -165,6 +191,7 @@
             </div>
         </section>
 
+        <!-- Contact Section -->
         <section id="contact" class="py-20 px-8 lg:px-24 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
             <div class="mb-12 text-center">
                 <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-2"><span class="text-brand-500">#</span> Contact</h2>
@@ -196,7 +223,16 @@
         </section>
     </main>
 
+    <!-- Modal Lightbox Image -->
+    <div id="image-modal" class="fixed inset-0 z-[60] bg-slate-900/90 hidden flex-col justify-center items-center p-4 transition-opacity">
+        <button id="close-modal" class="absolute top-6 right-6 lg:top-10 lg:right-10 text-white hover:text-brand-400 text-4xl focus:outline-none">&times;</button>
+        <img id="modal-img" src="" alt="Project Full View" class="max-w-full max-h-[85vh] rounded-xl shadow-2xl object-contain border border-slate-700">
+        <p id="modal-caption" class="text-white mt-4 font-bold text-lg text-center"></p>
+    </div>
+
+    <!-- UI & API Logic Scripts -->
     <script>
+        // 1. Sidebar & Theme Toggle
         const mobileBtn = document.getElementById('mobile-menu-btn');
         const sidebar = document.getElementById('sidebar');
         mobileBtn.addEventListener('click', () => sidebar.classList.toggle('-translate-x-full'));
@@ -219,18 +255,59 @@
             }
         });
 
+        // Modal Lightbox Logic
+        const modal = document.getElementById('image-modal');
+        const modalImg = document.getElementById('modal-img');
+        const modalCaption = document.getElementById('modal-caption');
+        const closeModal = document.getElementById('close-modal');
+
+        function openModal(src, title) {
+            modalImg.src = src;
+            modalCaption.innerText = title;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+
+        closeModal.addEventListener('click', () => {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = 'auto'; // Restore scrolling
+            modalImg.src = '';
+        });
+
+        // 2. Fetch API Setup
         const sheetId = '1SmSOaXpi817iaOiYa5N5K-ZAycT9vFsFf9d2n6FHASY';
 
         // Fetch Avatar Profile
         fetch(`https://opensheet.elk.sh/${sheetId}/Profile%20%26%20Bio`)
             .then(res => res.json())
             .then(data => {
+                // Cari kolom yg ada isinya link gambar, biasanya opensheet membaca spasi
                 const profile = data[0]; 
-                const avatarLink = profile['Avatar URL'] || profile['Avatar Path'] || profile['Avatar/Picture Path']; 
-                if (avatarLink) {
-                    document.getElementById('hero-avatar').src = avatarLink;
+                let avatarLink = profile['Avatar Path'] || profile['Avatar URL'] || profile['Avatar/Picture Path'];
+                
+                // Cari manual di keys jika nama kolomnya beda
+                if(!avatarLink) {
+                    const keys = Object.keys(profile);
+                    const avatarKey = keys.find(k => k.toLowerCase().includes('avatar') || k.toLowerCase().includes('image') || k.toLowerCase().includes('picture'));
+                    if(avatarKey) avatarLink = profile[avatarKey];
                 }
-            }).catch(err => console.log("Avatar belum diatur di Sheet", err));
+
+                if (avatarLink && avatarLink.startsWith('http')) {
+                    const imgEl = document.getElementById('hero-avatar');
+                    const initialEl = document.getElementById('hero-initials');
+                    
+                    // Preload gambar untuk mengecek apakah link valid
+                    const tempImg = new Image();
+                    tempImg.onload = function() {
+                        imgEl.src = avatarLink;
+                        imgEl.classList.remove('hidden');
+                        initialEl.classList.add('hidden');
+                    };
+                    tempImg.src = avatarLink;
+                }
+            }).catch(err => console.log("Avatar parsing error", err));
 
         // Fetch Skills
         fetch(`https://opensheet.elk.sh/${sheetId}/Skills Matrix`)
@@ -252,7 +329,7 @@
                 });
             }).catch(e => document.getElementById('skills-container').innerHTML = '<p class="text-red-500 col-span-full">Failed to load skills.</p>');
 
-        // Fetch Resume
+        // Fetch Resume (Education & Experience)
         fetch(`https://opensheet.elk.sh/${sheetId}/Resume`)
             .then(res => res.json())
             .then(data => {
@@ -277,7 +354,7 @@
                 document.getElementById('resume-exp').innerHTML = '<p class="text-red-500">Failed to load.</p>';
             });
 
-        // Fetch Projects
+        // Fetch Projects & Filtering Logic
         let allProjects = [];
         fetch(`https://opensheet.elk.sh/${sheetId}/Projects`)
             .then(res => res.json())
@@ -290,6 +367,7 @@
             const container = document.getElementById('projects-container');
             container.innerHTML = '';
             
+            // Filter logic
             const filtered = filter === 'ALL' 
                 ? allProjects 
                 : allProjects.filter(p => p.Category && p.Category.toUpperCase().includes(filter.toUpperCase()));
@@ -300,11 +378,24 @@
             }
 
             filtered.forEach(project => {
-                const imgUrl = project['Direct Image URL (lh3)'] || 'https://via.placeholder.com/400x300/1e293b/06b6d4?text=No+Image';
+                // If there's an image URL use it, otherwise use a placeholder
+                const hasImage = !!project['Direct Image URL (lh3)'];
+                const imgUrl = hasImage ? project['Direct Image URL (lh3)'] : 'https://via.placeholder.com/600x400/1e293b/06b6d4?text=No+Image';
+                
+                // Cek apakah ada external link dengan "http", kalau tidak ada tambahkan
+                let extLink = project['External Link'];
+                if(extLink && !extLink.startsWith('http')) {
+                    extLink = 'https://' + extLink;
+                }
+
+                // Add cursor-pointer if image exists so user knows they can click it
+                const imgCursorClass = hasImage ? 'cursor-pointer' : '';
+
                 container.innerHTML += `
                 <div class="group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-lg transition flex flex-col">
-                    <div class="h-48 overflow-hidden relative">
+                    <div class="h-48 overflow-hidden relative bg-slate-800 ${imgCursorClass}" ${hasImage ? `onclick="openModal('${imgUrl}', '${project['Project Title'].replace(/'/g, "\\'")}')"` : ''}>
                         <img src="${imgUrl}" alt="${project['Project Title']}" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500">
+                        ${hasImage ? `<div class="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/30 flex items-center justify-center transition duration-300"><i class="fas fa-search-plus text-white text-3xl opacity-0 group-hover:opacity-100 transition duration-300"></i></div>` : ''}
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <div class="flex justify-between items-start mb-2 gap-2">
@@ -315,12 +406,13 @@
                         <div class="flex flex-wrap gap-2 mb-4">
                             <span class="text-xs font-bold text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-900/30 px-2 py-1 rounded">${project['Key Tech'] || 'General'}</span>
                         </div>
-                        ${project['External Link'] ? `<a href="${project['External Link']}" target="_blank" class="text-sm font-bold text-brand-500 hover:underline">View Detail &rarr;</a>` : ''}
+                        ${extLink ? `<a href="${extLink}" target="_blank" class="text-sm font-bold text-brand-500 hover:underline">View Detail &rarr;</a>` : ''}
                     </div>
                 </div>`;
             });
         }
 
+        // Active State Button Filter
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 document.querySelectorAll('.filter-btn').forEach(b => {
@@ -329,6 +421,7 @@
                 });
                 e.target.classList.add('text-brand-500', 'border-b-2', 'border-brand-500');
                 e.target.classList.remove('text-slate-600', 'dark:text-slate-400');
+                
                 renderProjects(e.target.dataset.filter);
             });
         });
