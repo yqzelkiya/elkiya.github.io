@@ -9,19 +9,22 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- Tailwind Config Hybrid (Modern Cyan + Dark Mode) -->
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
-                    colors: { brand: { 400: '#3b82f6', 500: '#2563eb', 600: '#1d4ed8' } },
+                    colors: {
+                        brand: { 400: '#22d3ee', 500: '#06b6d4', 600: '#0891b2' }
+                    },
                     fontFamily: { sans: ['Inter', 'sans-serif'] }
                 }
             }
         }
     </script>
 
-    <!-- Theme Logic -->
+    <!-- Theme Logic (Mencegah Flicker) -->
     <script>
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
@@ -31,13 +34,11 @@
     </script>
 
     <style>
-        /* Custom Styles for Sidebar and Layout */
-        .sidebar { transition: all 0.3s ease; }
+        /* Sidebar layout adjustment */
         @media (min-width: 1024px) {
-            .main-content { margin-left: 80px; }
-            .sidebar { width: 80px; }
+            .main-content { margin-left: 5rem; /* 80px */ }
         }
-        /* Vertical Timeline Line */
+        /* Vertical Timeline Glow */
         .timeline-line::before {
             content: '';
             position: absolute;
@@ -45,375 +46,300 @@
             top: 0;
             bottom: 0;
             width: 2px;
-            background-color: #3b82f6; /* brand color */
+            background-color: #06b6d4; /* brand-500 */
+            opacity: 0.5;
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-700 dark:bg-slate-900 dark:text-slate-300 font-sans antialiased">
+<body class="bg-slate-50 text-slate-700 dark:bg-slate-950 dark:text-slate-300 font-sans antialiased transition-colors duration-300">
 
-    <!-- Mobile Header (Visible only on small screens) -->
-    <header class="lg:hidden fixed top-0 w-full bg-white dark:bg-slate-950 shadow-sm z-50 flex justify-between items-center px-4 py-3">
-        <h1 class="font-bold text-lg text-slate-800 dark:text-white">Yaqzhan Elkiya</h1>
+    <!-- Mobile Header -->
+    <header class="lg:hidden fixed top-0 w-full bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow-sm z-50 flex justify-between items-center px-6 py-4 border-b border-slate-200 dark:border-slate-800">
+        <h1 class="font-bold text-xl text-brand-600 dark:text-brand-400">Yaqzhan Elkiya</h1>
         <button id="mobile-menu-btn" class="text-2xl text-slate-600 dark:text-slate-400"><i class="fas fa-bars"></i></button>
     </header>
 
-    <!-- Sidebar Navigation (Left Side) -->
-    <nav id="sidebar" class="sidebar fixed top-0 left-0 h-screen bg-white dark:bg-slate-950 border-r border-slate-200 dark:border-slate-800 z-40 flex flex-col items-center py-8 transform -translate-x-full lg:translate-x-0 w-64 lg:w-20">
+    <!-- Sidebar Navigation (Icon Only, Sleek) -->
+    <nav id="sidebar" class="fixed top-0 left-0 h-screen w-64 lg:w-20 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-40 flex flex-col items-center py-8 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 shadow-xl lg:shadow-none">
         
-        <div class="flex flex-col gap-6 w-full px-4 lg:px-0 items-start lg:items-center mt-12 lg:mt-0">
-            <a href="#hero" class="nav-link w-12 h-12 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-brand-500 hover:text-white transition group" title="Home">
-                <i class="fas fa-home"></i>
-                <span class="lg:hidden ml-4 text-sm font-medium">Home</span>
+        <div class="flex flex-col gap-6 w-full px-6 lg:px-0 mt-16 lg:mt-0 items-start lg:items-center">
+            <a href="#hero" class="w-12 h-12 rounded-xl flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-brand-500 hover:text-white dark:hover:text-white transition group" title="Home">
+                <i class="fas fa-home text-lg"></i><span class="lg:hidden ml-4 font-medium text-sm">Home</span>
             </a>
-            <a href="#about" class="nav-link w-12 h-12 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-brand-500 hover:text-white transition group" title="About">
-                <i class="far fa-user"></i>
-                <span class="lg:hidden ml-4 text-sm font-medium">About</span>
+            <a href="#about" class="w-12 h-12 rounded-xl flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-brand-500 hover:text-white dark:hover:text-white transition group" title="About & Facts">
+                <i class="far fa-user text-lg"></i><span class="lg:hidden ml-4 font-medium text-sm">About</span>
             </a>
-            <a href="#resume" class="nav-link w-12 h-12 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-brand-500 hover:text-white transition group" title="Resume">
-                <i class="far fa-file-alt"></i>
-                <span class="lg:hidden ml-4 text-sm font-medium">Resume</span>
+            <a href="#skills" class="w-12 h-12 rounded-xl flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-brand-500 hover:text-white dark:hover:text-white transition group" title="Skills">
+                <i class="fas fa-sliders-h text-lg"></i><span class="lg:hidden ml-4 font-medium text-sm">Skills</span>
             </a>
-            <a href="#portfolio" class="nav-link w-12 h-12 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-brand-500 hover:text-white transition group" title="Portfolio">
-                <i class="fas fa-layer-group"></i>
-                <span class="lg:hidden ml-4 text-sm font-medium">Portfolio</span>
+            <a href="#resume" class="w-12 h-12 rounded-xl flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-brand-500 hover:text-white dark:hover:text-white transition group" title="Resume">
+                <i class="far fa-file-alt text-lg"></i><span class="lg:hidden ml-4 font-medium text-sm">Resume</span>
             </a>
-            <a href="#contact" class="nav-link w-12 h-12 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-brand-500 hover:text-white transition group" title="Contact">
-                <i class="far fa-envelope"></i>
-                <span class="lg:hidden ml-4 text-sm font-medium">Contact</span>
+            <a href="#portfolio" class="w-12 h-12 rounded-xl flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-brand-500 hover:text-white dark:hover:text-white transition group" title="Portfolio">
+                <i class="fas fa-layer-group text-lg"></i><span class="lg:hidden ml-4 font-medium text-sm">Portfolio</span>
+            </a>
+            <a href="#contact" class="w-12 h-12 rounded-xl flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-brand-500 hover:text-white dark:hover:text-white transition group" title="Contact">
+                <i class="far fa-envelope text-lg"></i><span class="lg:hidden ml-4 font-medium text-sm">Contact</span>
             </a>
             
-            <!-- Dark Mode Toggle -->
-            <button id="theme-toggle" class="mt-auto w-12 h-12 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-brand-500 transition">
+            <!-- Dark Mode Toggle di Sidebar -->
+            <button id="theme-toggle" class="mt-auto w-12 h-12 rounded-xl flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-brand-500 transition">
                 <i id="theme-toggle-dark-icon" class="fas fa-moon hidden text-lg"></i>
                 <i id="theme-toggle-light-icon" class="fas fa-sun hidden text-lg"></i>
+                <span class="lg:hidden ml-4 font-medium text-sm">Theme</span>
             </button>
         </div>
     </nav>
 
-    <!-- Main Content Area -->
+    <!-- Main Content -->
     <main class="main-content">
         
-        <!-- Hero Section (Full Height Background Image Layout) -->
-        <!-- GANTI URL BACKGROUND DI BAWAH DENGAN LINK FOTOMU YG DI PABRIK (lh3 Google Drive) -->
-        <section id="hero" class="h-screen relative flex flex-col justify-center px-8 lg:px-20 bg-cover bg-center bg-no-repeat" style="background-image: url('https://ui-avatars.com/api/?name=Hero+Background&background=cbd5e1');">
-            <!-- Overlay agar teks terbaca -->
-            <div class="absolute inset-0 bg-white/70 dark:bg-slate-900/80"></div>
-            
-            <div class="relative z-10 max-w-3xl mt-16 lg:mt-0">
-                <h1 class="text-4xl md:text-6xl font-bold text-slate-800 dark:text-white mb-4">Yaqzhan Elkiya Muhammad Shah, S.T</h1>
-                <p class="text-xl md:text-2xl text-slate-600 dark:text-slate-300 font-medium mb-8">
-                    I'm <span class="text-brand-500 border-b-2 border-brand-500">Embedded System Engi</span>
-                </p>
-                <div class="flex gap-4 text-xl">
-                    <a href="https://github.com/yqzelkiya" class="text-slate-600 dark:text-slate-400 hover:text-brand-500"><i class="fab fa-github"></i></a>
-                    <a href="#" class="text-slate-600 dark:text-slate-400 hover:text-brand-500"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.linkedin.com/in/elkiya-yaqzhan/" class="text-slate-600 dark:text-slate-400 hover:text-brand-500"><i class="fab fa-linkedin-in"></i></a>
+        <!-- Hero Section -->
+        <section id="hero" class="min-h-screen flex items-center px-8 lg:px-24">
+            <div class="flex flex-col-reverse lg:flex-row items-center gap-12 w-full pt-20 lg:pt-0">
+                <div class="flex-1 text-center lg:text-left">
+                    <p class="text-brand-600 dark:text-brand-400 font-bold tracking-widest uppercase mb-3 text-sm">MSc Robotics Student | CEO TorjunTech</p>
+                    <h1 class="text-4xl lg:text-6xl font-extrabold text-slate-900 dark:text-white mb-6 leading-tight">Yaqzhan Elkiya <br class="hidden lg:block"> Muhammad Shah</h1>
+                    <p class="text-lg text-slate-600 dark:text-slate-400 mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                        Electronic and Automation Engineer experienced in embedded systems, industrial automation, and autonomous robotics. Bridging physical hardware with intelligent AI systems.
+                    </p>
+                    <div class="flex flex-wrap justify-center lg:justify-start gap-4">
+                        <a href="https://drive.google.com/file/d/1A-lJb2rFWGpT-n0yU_vUeR5TLDrqzGLc/view" target="_blank" class="px-6 py-3 rounded-full bg-brand-600 hover:bg-brand-500 text-white font-bold transition shadow-lg shadow-brand-500/30"><i class="fas fa-file-pdf mr-2"></i> Download CV</a>
+                        <a href="https://github.com/yqzelkiya" target="_blank" class="w-12 h-12 flex items-center justify-center rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-white hover:bg-brand-500 hover:text-white transition"><i class="fab fa-github text-xl"></i></a>
+                        <a href="https://www.linkedin.com/in/elkiya-yaqzhan/" target="_blank" class="w-12 h-12 flex items-center justify-center rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-white hover:bg-brand-500 hover:text-white transition"><i class="fab fa-linkedin-in text-xl"></i></a>
+                    </div>
+                </div>
+                <div class="flex-shrink-0">
+                    <!-- Ganti src ini dengan link foto profil terbaikmu -->
+                    <img src="https://ui-avatars.com/api/?name=Yaqzhan+Elkiya&background=06b6d4&color=fff&size=512" alt="Yaqzhan Elkiya" class="w-56 h-56 lg:w-80 lg:h-80 rounded-full border-4 border-brand-500/30 object-cover shadow-2xl shadow-brand-500/20">
                 </div>
             </div>
         </section>
 
-        <!-- About Section -->
-        <section id="about" class="py-16 px-6 lg:px-20 bg-white dark:bg-slate-950">
-            <!-- Section Title -->
+        <!-- About & Facts Section -->
+        <section id="about" class="py-20 px-8 lg:px-24 bg-white dark:bg-slate-900 border-y border-slate-200 dark:border-slate-800">
             <div class="mb-12">
-                <h2 class="text-3xl font-bold text-slate-800 dark:text-white uppercase tracking-widest relative pb-4 inline-block">
-                    About
-                    <span class="absolute bottom-0 left-0 w-12 h-1 bg-brand-500"></span>
-                </h2>
+                <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-2"><span class="text-brand-500">#</span> About Me</h2>
+                <p class="text-slate-500 dark:text-slate-400">Curious in multidisciplinary fields - Electronics, AI, and Automation.</p>
             </div>
             
-            <p class="text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
-                Electronic engineer expertised in embedded system, automation and machine learning proven by previous awards and research. Experienced in developing electric vehicles (EVs), autonomous vehicles (AVs), and humanoid robots. A person with interest in social and civilization movement with touch of technology.
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed max-w-4xl mb-12">
+                I am an Electronic and Automation Engineer pursuing an MSc in Robotics at The University of Manchester (LPDP Scholar). My research interests include automated semiconductor manufacturing, ROS 2 workspace integration, Hardware-in-the-Loop (HIL) simulation, Coverage Path Planning (CPP), Neural Network-based motor control, and CAN Bus architecture.
             </p>
 
-            <div class="flex flex-col lg:flex-row gap-10">
-                <!-- GANTI LINK FOTO WISUDA DI BAWAH (lh3 Google Drive) -->
-                <div class="lg:w-1/3">
-                    <img src="https://ui-avatars.com/api/?name=Graduation+Photo&background=cbd5e1&size=512" alt="Graduation" class="w-full h-auto shadow-md">
+            <!-- Facts (Old web counter layout but modern style) -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="bg-slate-50 dark:bg-slate-950 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 text-center flex flex-col items-center">
+                    <div class="w-12 h-12 rounded-full bg-brand-100 dark:bg-brand-900/30 text-brand-500 flex items-center justify-center text-xl mb-4"><i class="fas fa-project-diagram"></i></div>
+                    <h4 class="text-3xl font-bold text-slate-900 dark:text-white">5+</h4>
+                    <p class="text-sm text-slate-500 mt-1">Major Projects</p>
                 </div>
-                <div class="lg:w-2/3">
-                    <ul class="space-y-4 text-slate-700 dark:text-slate-300">
-                        <li class="flex items-start"><i class="fas fa-chevron-right text-brand-500 mt-1 mr-3"></i> <strong>Education:</strong> &nbsp; Bachelor of Electrical Engineering, Institut Teknologi Sepuluh Nopember, Indonesia</li>
-                        <li class="flex items-start"><i class="fas fa-chevron-right text-brand-500 mt-1 mr-3"></i> <strong>Phone:</strong> &nbsp; (+62)81216556595</li>
-                        <li class="flex items-start"><i class="fas fa-chevron-right text-brand-500 mt-1 mr-3"></i> <strong>Email:</strong> &nbsp; yaqzhanelkiya01@gmail.com</li>
-                    </ul>
-                    <p class="mt-6 text-slate-600 dark:text-slate-400 leading-relaxed">
-                        Skilled and persuasive communication with ability to critically analyze problems and curiosity to learn something new in independently and collaboratively.
-                    </p>
+                <div class="bg-slate-50 dark:bg-slate-950 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 text-center flex flex-col items-center">
+                    <div class="w-12 h-12 rounded-full bg-brand-100 dark:bg-brand-900/30 text-brand-500 flex items-center justify-center text-xl mb-4"><i class="fas fa-certificate"></i></div>
+                    <h4 class="text-3xl font-bold text-slate-900 dark:text-white">4</h4>
+                    <p class="text-sm text-slate-500 mt-1">Certifications</p>
                 </div>
-            </div>
-
-            <!-- Facts Subsection -->
-            <div class="mt-20">
-                <h2 class="text-3xl font-bold text-slate-800 dark:text-white uppercase tracking-widest relative pb-4 inline-block mb-6">
-                    Facts
-                    <span class="absolute bottom-0 left-0 w-12 h-1 bg-brand-500"></span>
-                </h2>
-                <p class="text-slate-600 dark:text-slate-400 mb-8">Curious in multidisciplinary fields to integrate technology - particularly electronics, AI, and social movement.</p>
-                
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                    <div>
-                        <div class="w-16 h-16 rounded-full bg-brand-500 text-white flex items-center justify-center text-2xl mx-auto mb-4"><i class="far fa-smile"></i></div>
-                        <h4 class="text-4xl font-bold text-slate-800 dark:text-white">5</h4>
-                        <p class="text-sm text-slate-500">Projects</p>
-                    </div>
-                    <div>
-                        <div class="w-16 h-16 rounded-full bg-brand-500 text-white flex items-center justify-center text-2xl mx-auto mb-4"><i class="far fa-file-alt"></i></div>
-                        <h4 class="text-4xl font-bold text-slate-800 dark:text-white">4</h4>
-                        <p class="text-sm text-slate-500">Licenses & certifications</p>
-                    </div>
-                    <div>
-                        <div class="w-16 h-16 rounded-full bg-brand-500 text-white flex items-center justify-center text-2xl mx-auto mb-4"><i class="fas fa-award"></i></div>
-                        <h4 class="text-4xl font-bold text-slate-800 dark:text-white">9</h4>
-                        <p class="text-sm text-slate-500">Honors & Awards</p>
-                    </div>
-                    <div>
-                        <div class="w-16 h-16 rounded-full bg-brand-500 text-white flex items-center justify-center text-2xl mx-auto mb-4"><i class="fas fa-desktop"></i></div>
-                        <h4 class="text-4xl font-bold text-slate-800 dark:text-white">2</h4>
-                        <p class="text-sm text-slate-500">Experiences</p>
-                    </div>
+                <div class="bg-slate-50 dark:bg-slate-950 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 text-center flex flex-col items-center">
+                    <div class="w-12 h-12 rounded-full bg-brand-100 dark:bg-brand-900/30 text-brand-500 flex items-center justify-center text-xl mb-4"><i class="fas fa-trophy"></i></div>
+                    <h4 class="text-3xl font-bold text-slate-900 dark:text-white">9</h4>
+                    <p class="text-sm text-slate-500 mt-1">Honors & Awards</p>
+                </div>
+                <div class="bg-slate-50 dark:bg-slate-950 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 text-center flex flex-col items-center">
+                    <div class="w-12 h-12 rounded-full bg-brand-100 dark:bg-brand-900/30 text-brand-500 flex items-center justify-center text-xl mb-4"><i class="fas fa-briefcase"></i></div>
+                    <h4 class="text-3xl font-bold text-slate-900 dark:text-white">2+</h4>
+                    <p class="text-sm text-slate-500 mt-1">Years Experience</p>
                 </div>
             </div>
+        </section>
 
-            <!-- Skills Subsection (Progress Bars) -->
-            <div class="mt-20">
-                <h2 class="text-3xl font-bold text-slate-800 dark:text-white uppercase tracking-widest relative pb-4 inline-block mb-10">
-                    Skills
-                    <span class="absolute bottom-0 left-0 w-12 h-1 bg-brand-500"></span>
-                </h2>
-                
-                <div class="grid md:grid-cols-2 gap-8">
-                    <!-- Skill 1 -->
-                    <div>
-                        <div class="flex justify-between text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
-                            <span>ROS</span><span>85%</span>
-                        </div>
-                        <div class="w-full bg-slate-200 dark:bg-slate-700 h-2">
-                            <div class="bg-brand-500 h-2" style="width: 85%"></div>
-                        </div>
+        <!-- Skills Section (Progress Bars Hybrid) -->
+        <section id="skills" class="py-20 px-8 lg:px-24">
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-2"><span class="text-brand-500">#</span> Technical Skills</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-x-12 gap-y-8">
+                <!-- Skill 1 -->
+                <div>
+                    <div class="flex justify-between text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">
+                        <span>ROS / ROS 2 (Nav2, MoveIt 2)</span><span>85%</span>
                     </div>
-                    <!-- Skill 2 -->
-                    <div>
-                        <div class="flex justify-between text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
-                            <span>MACHINE LEARNING</span><span>70%</span>
-                        </div>
-                        <div class="w-full bg-slate-200 dark:bg-slate-700 h-2">
-                            <div class="bg-brand-500 h-2" style="width: 70%"></div>
-                        </div>
+                    <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2.5 overflow-hidden">
+                        <div class="bg-brand-500 h-2.5 rounded-full" style="width: 85%"></div>
                     </div>
-                    <!-- Skill 3 -->
-                    <div>
-                        <div class="flex justify-between text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
-                            <span>EAGLE, KICAD, EASYEDA</span><span>90%</span>
-                        </div>
-                        <div class="w-full bg-slate-200 dark:bg-slate-700 h-2">
-                            <div class="bg-brand-500 h-2" style="width: 90%"></div>
-                        </div>
+                </div>
+                <!-- Skill 2 -->
+                <div>
+                    <div class="flex justify-between text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">
+                        <span>C, C++, Python</span><span>90%</span>
                     </div>
-                    <!-- Skill 4 -->
-                    <div>
-                        <div class="flex justify-between text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
-                            <span>AUTOCAD, INVENTOR, FUSION 360</span><span>60%</span>
-                        </div>
-                        <div class="w-full bg-slate-200 dark:bg-slate-700 h-2">
-                            <div class="bg-brand-500 h-2" style="width: 60%"></div>
-                        </div>
+                    <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2.5 overflow-hidden">
+                        <div class="bg-brand-500 h-2.5 rounded-full" style="width: 90%"></div>
                     </div>
-                    <!-- Skill 5 -->
-                    <div>
-                        <div class="flex justify-between text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
-                            <span>PROGRAMMING LANGUAGE (C, C++, PYTHON)</span><span>90%</span>
-                        </div>
-                        <div class="w-full bg-slate-200 dark:bg-slate-700 h-2">
-                            <div class="bg-brand-500 h-2" style="width: 90%"></div>
-                        </div>
+                </div>
+                <!-- Skill 3 -->
+                <div>
+                    <div class="flex justify-between text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">
+                        <span>STM32, CAN Bus, Modbus</span><span>85%</span>
                     </div>
-                    <!-- Skill 6 -->
-                    <div>
-                        <div class="flex justify-between text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
-                            <span>COMPUTER VISION</span><span>85%</span>
-                        </div>
-                        <div class="w-full bg-slate-200 dark:bg-slate-700 h-2">
-                            <div class="bg-brand-500 h-2" style="width: 85%"></div>
-                        </div>
+                    <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2.5 overflow-hidden">
+                        <div class="bg-brand-500 h-2.5 rounded-full" style="width: 85%"></div>
+                    </div>
+                </div>
+                <!-- Skill 4 -->
+                <div>
+                    <div class="flex justify-between text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">
+                        <span>PLC (Schneider, Siemens) & SCADA</span><span>80%</span>
+                    </div>
+                    <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2.5 overflow-hidden">
+                        <div class="bg-brand-500 h-2.5 rounded-full" style="width: 80%"></div>
+                    </div>
+                </div>
+                <!-- Skill 5 -->
+                <div>
+                    <div class="flex justify-between text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">
+                        <span>Machine Learning & OpenCV</span><span>75%</span>
+                    </div>
+                    <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2.5 overflow-hidden">
+                        <div class="bg-brand-500 h-2.5 rounded-full" style="width: 75%"></div>
+                    </div>
+                </div>
+                <!-- Skill 6 -->
+                <div>
+                    <div class="flex justify-between text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">
+                        <span>KiCad, AutoCAD, Fusion 360</span><span>80%</span>
+                    </div>
+                    <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2.5 overflow-hidden">
+                        <div class="bg-brand-500 h-2.5 rounded-full" style="width: 80%"></div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Resume Section (Vertical Timeline) -->
-        <section id="resume" class="py-16 px-6 lg:px-20 bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
-            <div class="mb-12 text-center lg:text-left">
-                <h2 class="text-3xl font-bold text-slate-800 dark:text-white uppercase tracking-widest relative pb-4 inline-block">
-                    Resume
-                    <span class="absolute bottom-0 left-0 lg:left-0 w-12 h-1 bg-brand-500"></span>
-                </h2>
-                <p class="text-slate-600 dark:text-slate-400 mt-4">I am also in some other things like event organization, project, lab research, and competition.</p>
+        <section id="resume" class="py-20 px-8 lg:px-24 bg-white dark:bg-slate-900 border-y border-slate-200 dark:border-slate-800">
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-2"><span class="text-brand-500">#</span> Resume</h2>
+                <p class="text-slate-500 dark:text-slate-400">Academic background and professional journey.</p>
             </div>
 
-            <div class="grid lg:grid-cols-2 gap-10">
-                
-                <!-- Left Column (Education) -->
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Education -->
                 <div>
-                    <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-6">Education</h3>
-                    <div class="relative timeline-line pl-6">
-                        <!-- Item 1 -->
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-8 flex items-center"><i class="fas fa-graduation-cap text-brand-500 mr-3"></i> Education</h3>
+                    <div class="relative timeline-line pl-8">
                         <div class="mb-10 relative">
-                            <div class="w-4 h-4 rounded-full bg-white dark:bg-slate-900 border-2 border-brand-500 absolute -left-[30px] top-1"></div>
-                            <h4 class="text-lg font-bold text-brand-600 dark:text-brand-400 uppercase">BACHELOR OF & ELECTRICAL ENGINEERING</h4>
-                            <div class="bg-slate-200 dark:bg-slate-800 inline-block px-3 py-1 rounded text-sm font-semibold text-slate-700 dark:text-slate-300 my-2">2019 - 2024</div>
-                            <p class="italic text-slate-600 dark:text-slate-400 mb-2">Institut Teknologi Sepuluh Nopember (ITS)</p>
-                            <p class="text-slate-600 dark:text-slate-400">Specialization of Electronics Key Coursework: Embedded system, machine learning, autonomous and humanoid robot, machine vision, VLSI Design, electronic control system. Researched in electronic control of autonomous car using PID-neural network.</p>
+                            <div class="w-4 h-4 rounded-full bg-white dark:bg-slate-900 border-2 border-brand-500 absolute -left-[38px] top-1"></div>
+                            <h4 class="text-lg font-bold text-slate-800 dark:text-brand-400">MSc Robotics</h4>
+                            <div class="bg-slate-100 dark:bg-slate-800 text-brand-600 dark:text-brand-400 text-xs font-bold px-2 py-1 rounded inline-block my-2">2026 - Present</div>
+                            <p class="font-medium text-slate-700 dark:text-slate-300 mb-1">The University of Manchester</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Fully funded LPDP Scholar. Focusing on AERO62520 Robotic Systems Design and automated semiconductor manufacturing research.</p>
                         </div>
-                        <!-- Item 2 -->
                         <div class="mb-10 relative">
-                            <div class="w-4 h-4 rounded-full bg-white dark:bg-slate-900 border-2 border-brand-500 absolute -left-[30px] top-1"></div>
-                            <h4 class="text-lg font-bold text-brand-600 dark:text-brand-400 uppercase">SENIOR HIGH SCHOOL & SCIENCE MAJOR</h4>
-                            <div class="bg-slate-200 dark:bg-slate-800 inline-block px-3 py-1 rounded text-sm font-semibold text-slate-700 dark:text-slate-300 my-2">2016 - 2019</div>
-                            <p class="italic text-slate-600 dark:text-slate-400 mb-2">Amanatul Ummah International Standard School</p>
-                            <p class="text-slate-600 dark:text-slate-400">a leader of Andromeda robotic team developed an underwater ROV for ASEAN MATE ROV 2018.</p>
+                            <div class="w-4 h-4 rounded-full bg-white dark:bg-slate-900 border-2 border-brand-500 absolute -left-[38px] top-1"></div>
+                            <h4 class="text-lg font-bold text-slate-800 dark:text-brand-400">Bachelor of Electrical Engineering</h4>
+                            <div class="bg-slate-100 dark:bg-slate-800 text-brand-600 dark:text-brand-400 text-xs font-bold px-2 py-1 rounded inline-block my-2">2019 - 2023</div>
+                            <p class="font-medium text-slate-700 dark:text-slate-300 mb-1">Institut Teknologi Sepuluh Nopember (ITS)</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Specialization in Electronics. Researched electronic control of autonomous car using PID-neural network. GPA: 3.62/4.00.</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Right Column (Experience) -->
+                <!-- Experience -->
                 <div>
-                    <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-6">Professional Experience</h3>
-                    <div class="relative timeline-line pl-6">
-                        <!-- Item 1 -->
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-8 flex items-center"><i class="fas fa-briefcase text-brand-500 mr-3"></i> Experience</h3>
+                    <div class="relative timeline-line pl-8">
                         <div class="mb-10 relative">
-                            <div class="w-4 h-4 rounded-full bg-white dark:bg-slate-900 border-2 border-brand-500 absolute -left-[30px] top-1"></div>
-                            <h4 class="text-lg font-bold text-brand-600 dark:text-brand-400 uppercase">PT. SOLUSI TEKNOLOGI BERKREASI</h4>
-                            <div class="bg-slate-200 dark:bg-slate-800 inline-block px-3 py-1 rounded text-sm font-semibold text-slate-700 dark:text-slate-300 my-2">2024 - Present</div>
-                            <p class="italic text-slate-600 dark:text-slate-400 mb-2">Automation Engineer</p>
-                            <ul class="list-disc ml-5 text-slate-600 dark:text-slate-400 space-y-1">
-                                <li>As a official partner of Schneider, I researched and designed the program of PLC Schneider M221 and HMI by Vijeo Designer. The program I conducted are HVAC in Vertical Hospital Makassar and Data Center projects</li>
-                            </ul>
+                            <div class="w-4 h-4 rounded-full bg-white dark:bg-slate-900 border-2 border-brand-500 absolute -left-[38px] top-1"></div>
+                            <h4 class="text-lg font-bold text-slate-800 dark:text-brand-400">Automation Engineer</h4>
+                            <div class="bg-slate-100 dark:bg-slate-800 text-brand-600 dark:text-brand-400 text-xs font-bold px-2 py-1 rounded inline-block my-2">2024 - 2025</div>
+                            <p class="font-medium text-slate-700 dark:text-slate-300 mb-1">PT. Solusi Teknologi Berkreasi</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Designed PLC Schneider M221 programs and HMI for HVAC in Vertical Hospital Makassar and Microsoft Data Center power management projects.</p>
                         </div>
-                        <!-- Item 2 -->
                         <div class="mb-10 relative">
-                            <div class="w-4 h-4 rounded-full bg-white dark:bg-slate-900 border-2 border-brand-500 absolute -left-[30px] top-1"></div>
-                            <h4 class="text-lg font-bold text-brand-600 dark:text-brand-400 uppercase">PT. DAYASA ARIA PRIMA</h4>
-                            <div class="bg-slate-200 dark:bg-slate-800 inline-block px-3 py-1 rounded text-sm font-semibold text-slate-700 dark:text-slate-300 my-2">2023 - 2024</div>
-                            <p class="italic text-slate-600 dark:text-slate-400 mb-2">Energy - Electrical Engineer</p>
-                            <ul class="list-disc ml-5 text-slate-600 dark:text-slate-400 space-y-1">
-                                <li>Responsible in electrical processes and automation by PLC and DCS in turbines and boilers. Improved the system by auto startup Burner. Gas Turbine synchronization, Planintegrated vision, vibration sensor, gas detector, and CEMS.</li>
-                            </ul>
+                            <div class="w-4 h-4 rounded-full bg-white dark:bg-slate-900 border-2 border-brand-500 absolute -left-[38px] top-1"></div>
+                            <h4 class="text-lg font-bold text-slate-800 dark:text-brand-400">Energy - Electrical Engineer</h4>
+                            <div class="bg-slate-100 dark:bg-slate-800 text-brand-600 dark:text-brand-400 text-xs font-bold px-2 py-1 rounded inline-block my-2">2023 - 2024</div>
+                            <p class="font-medium text-slate-700 dark:text-slate-300 mb-1">PT. Dayasa Aria Prima</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Managed electrical processes and automation via PLC and Yokogawa DCS. Improved system efficiency by 19% via auto-startup gas burners.</p>
                         </div>
                     </div>
                 </div>
-
             </div>
         </section>
 
-        <!-- Portfolio Section (Grid Layout) - Dynamic Fetch from Google Sheet -->
-        <section id="portfolio" class="py-16 px-6 lg:px-20 bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-slate-800 dark:text-white uppercase tracking-widest relative pb-4 inline-block">
-                    Portfolio
-                    <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-brand-500"></span>
-                </h2>
-                <p class="text-slate-600 dark:text-slate-400 mt-4">I am looking forward to work with all partners around the world.</p>
-                
-                <!-- Filter Tabs (Visual only based on screenshot) -->
-                <div class="flex justify-center gap-6 mt-6 text-sm font-bold uppercase">
-                    <span class="text-brand-500 cursor-pointer">ALL</span>
-                    <span class="text-slate-600 dark:text-slate-400 hover:text-brand-500 cursor-pointer">ELECTRONICS</span>
-                    <span class="text-slate-600 dark:text-slate-400 hover:text-brand-500 cursor-pointer">AI</span>
-                    <span class="text-slate-600 dark:text-slate-400 hover:text-brand-500 cursor-pointer">ROBOTICS</span>
+        <!-- Portfolio Section (Grid / Cards) -->
+        <section id="portfolio" class="py-20 px-8 lg:px-24">
+            <div class="mb-12 flex flex-col md:flex-row md:justify-between md:items-end">
+                <div>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-2"><span class="text-brand-500">#</span> Portfolio</h2>
+                    <p class="text-slate-500 dark:text-slate-400">Dynamic showcase from Google Sheets.</p>
                 </div>
             </div>
 
-            <!-- Dynamic Google Sheet Container -->
-            <div id="projects-container" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Dynamic Container -->
+            <div id="projects-container" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Loader -->
                 <div class="col-span-full text-center py-10">
                     <i class="fas fa-circle-notch fa-spin text-3xl text-brand-500"></i>
+                    <p class="text-slate-500 dark:text-slate-400 mt-3">Loading projects...</p>
                 </div>
             </div>
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="py-16 px-6 lg:px-20 bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-slate-800 dark:text-white uppercase tracking-widest relative pb-4 inline-block">
-                    Contact
-                    <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-brand-500"></span>
-                </h2>
+        <section id="contact" class="py-20 px-8 lg:px-24 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
+            <div class="mb-12 text-center">
+                <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-2"><span class="text-brand-500">#</span> Contact</h2>
+                <p class="text-slate-500 dark:text-slate-400">Feel free to reach out for collaborations or inquiries.</p>
             </div>
 
-            <div class="grid lg:grid-cols-3 gap-10">
-                
-                <!-- Contact Info -->
-                <div class="space-y-8">
-                    <div class="flex items-start">
-                        <div class="w-12 h-12 rounded-full bg-slate-200 dark:bg-slate-800 text-brand-500 flex items-center justify-center text-xl mr-4 hover:bg-brand-500 hover:text-white transition">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
+            <div class="grid lg:grid-cols-3 gap-10 max-w-5xl mx-auto">
+                <!-- Info -->
+                <div class="space-y-6">
+                    <div class="flex items-center p-4 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800">
+                        <div class="w-12 h-12 rounded-full bg-brand-100 dark:bg-brand-900/30 text-brand-500 flex items-center justify-center text-xl mr-4"><i class="fas fa-map-marker-alt"></i></div>
                         <div>
-                            <h4 class="text-lg font-bold text-slate-800 dark:text-white">Location:</h4>
-                            <p class="text-slate-600 dark:text-slate-400 text-sm">Sampang, East Java 69271</p>
+                            <h4 class="font-bold text-slate-900 dark:text-white">Location</h4>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">Manchester, UK | Indonesia</p>
                         </div>
                     </div>
-                    <div class="flex items-start">
-                        <div class="w-12 h-12 rounded-full bg-slate-200 dark:bg-slate-800 text-brand-500 flex items-center justify-center text-xl mr-4 hover:bg-brand-500 hover:text-white transition">
-                            <i class="far fa-envelope"></i>
-                        </div>
+                    <div class="flex items-center p-4 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800">
+                        <div class="w-12 h-12 rounded-full bg-brand-100 dark:bg-brand-900/30 text-brand-500 flex items-center justify-center text-xl mr-4"><i class="far fa-envelope"></i></div>
                         <div>
-                            <h4 class="text-lg font-bold text-slate-800 dark:text-white">Email:</h4>
+                            <h4 class="font-bold text-slate-900 dark:text-white">Email</h4>
                             <p class="text-slate-600 dark:text-slate-400 text-sm">yaqzhanelkiya01@gmail.com</p>
                         </div>
                     </div>
-                    <div class="flex items-start">
-                        <div class="w-12 h-12 rounded-full bg-slate-200 dark:bg-slate-800 text-brand-500 flex items-center justify-center text-xl mr-4 hover:bg-brand-500 hover:text-white transition">
-                            <i class="fas fa-mobile-alt"></i>
-                        </div>
+                    <div class="flex items-center p-4 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800">
+                        <div class="w-12 h-12 rounded-full bg-brand-100 dark:bg-brand-900/30 text-brand-500 flex items-center justify-center text-xl mr-4"><i class="fab fa-linkedin-in"></i></div>
                         <div>
-                            <h4 class="text-lg font-bold text-slate-800 dark:text-white">Call:</h4>
-                            <p class="text-slate-600 dark:text-slate-400 text-sm">(+62)81216556595</p>
+                            <h4 class="font-bold text-slate-900 dark:text-white">LinkedIn</h4>
+                            <a href="https://www.linkedin.com/in/elkiya-yaqzhan/" target="_blank" class="text-brand-500 text-sm hover:underline">/in/elkiya-yaqzhan</a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Contact Form (Visual Interface) -->
+                <!-- Simple Form (Visual) -->
                 <div class="lg:col-span-2">
                     <form class="space-y-4">
                         <div class="grid md:grid-cols-2 gap-4">
-                            <input type="text" placeholder="Your Name" class="w-full px-4 py-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:border-brand-500">
-                            <input type="email" placeholder="Your Email" class="w-full px-4 py-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:border-brand-500">
+                            <input type="text" placeholder="Your Name" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white focus:outline-none focus:border-brand-500">
+                            <input type="email" placeholder="Your Email" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white focus:outline-none focus:border-brand-500">
                         </div>
-                        <input type="text" placeholder="Subject" class="w-full px-4 py-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:border-brand-500">
-                        <textarea rows="5" placeholder="Message" class="w-full px-4 py-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:border-brand-500"></textarea>
-                        <div class="text-center">
-                            <button type="button" class="bg-brand-500 hover:bg-brand-600 text-white font-medium py-3 px-8 rounded-full transition">Send Message</button>
-                        </div>
+                        <input type="text" placeholder="Subject" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white focus:outline-none focus:border-brand-500">
+                        <textarea rows="4" placeholder="Message" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white focus:outline-none focus:border-brand-500"></textarea>
+                        <button type="button" class="bg-brand-600 hover:bg-brand-500 text-white font-bold py-3 px-8 rounded-xl transition w-full md:w-auto">Send Message</button>
                     </form>
                 </div>
             </div>
         </section>
 
-        <!-- Footer -->
-        <footer class="py-12 bg-white dark:bg-slate-950 text-center border-t border-slate-200 dark:border-slate-800">
-            <h2 class="text-3xl font-bold text-slate-800 dark:text-white mb-4">Yaqzhan Elkiya Muhammad Shah</h2>
-            <p class="text-slate-600 dark:text-slate-400 italic mb-8">If you have some project that would like to involve me or you want to recruit me on your team, feel free to contact me.</p>
-            
-            <div class="flex justify-center gap-3 mb-6">
-                <a href="#" class="w-10 h-10 rounded-full bg-brand-500 text-white flex items-center justify-center hover:bg-brand-600"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="w-10 h-10 rounded-full bg-brand-500 text-white flex items-center justify-center hover:bg-brand-600"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.linkedin.com/in/elkiya-yaqzhan/" class="w-10 h-10 rounded-full bg-brand-500 text-white flex items-center justify-center hover:bg-brand-600"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://github.com/yqzelkiya" class="w-10 h-10 rounded-full bg-brand-500 text-white flex items-center justify-center hover:bg-brand-600"><i class="fab fa-github"></i></a>
-            </div>
-            
-            <p class="text-sm text-slate-600 dark:text-slate-500">
-                &copy; Copyright <strong>MyResume</strong>. All Rights Reserved <br>
-                Designed for AERO62520 CPD (Inspired by BootstrapMade)
-            </p>
-        </footer>
-
     </main>
 
-    <!-- Logic Script for Google Sheet Projects & Sidebar -->
+    <!-- Scripts -->
     <script>
-        // 1. Mobile Sidebar Logic
+        // 1. Mobile Menu Toggle
         const mobileBtn = document.getElementById('mobile-menu-btn');
         const sidebar = document.getElementById('sidebar');
         mobileBtn.addEventListener('click', () => {
@@ -443,7 +369,7 @@
             }
         });
 
-        // 3. Fetch Google Sheet Projects
+        // 3. Google Sheets Fetch for Projects
         const sheetId = '1SmSOaXpi817iaOiYa5N5K-ZAycT9vFsFf9d2n6FHASY';
         const apiUrl = `https://opensheet.elk.sh/${sheetId}/Projects`;
 
@@ -454,23 +380,30 @@
                 container.innerHTML = ''; 
 
                 data.forEach(project => {
-                    const imgUrl = project['Direct Image URL (lh3)'] || 'https://via.placeholder.com/400x300/e2e8f0/64748b?text=No+Image';
-                    // Render image block mirip tema lama (hover effect)
-                    const item = document.createElement('div');
-                    item.className = 'group relative overflow-hidden bg-white dark:bg-slate-800 shadow-sm';
-                    item.innerHTML = `
-                        <img src="${imgUrl}" alt="${project['Project Title']}" class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500">
-                        <div class="absolute inset-0 bg-white/90 dark:bg-slate-900/90 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition duration-300 p-4 text-center">
-                            <h4 class="text-lg font-bold text-slate-800 dark:text-white mb-2">${project['Project Title']}</h4>
-                            <p class="text-sm text-slate-600 dark:text-slate-400 line-clamp-3">${project['Short Description']}</p>
+                    const imgUrl = project['Direct Image URL (lh3)'] || 'https://via.placeholder.com/400x300/1e293b/06b6d4?text=No+Image';
+                    
+                    // Card structure combining modern look + old web feel
+                    const card = document.createElement('div');
+                    card.className = 'group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-lg transition flex flex-col';
+                    card.innerHTML = `
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="${imgUrl}" alt="${project['Project Title']}" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500">
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">${project['Project Title']}</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm mb-4 flex-grow line-clamp-3">${project['Short Description']}</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="text-xs font-bold text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-900/30 px-2 py-1 rounded">${project['Key Tech']}</span>
+                            </div>
+                            ${project['External Link'] ? `<a href="${project['External Link']}" target="_blank" class="text-sm font-bold text-brand-500 hover:underline">View Detail &rarr;</a>` : ''}
                         </div>
                     `;
-                    container.appendChild(item);
+                    container.appendChild(card);
                 });
             })
             .catch(err => {
                 console.error(err);
-                document.getElementById('projects-container').innerHTML = '<p class="text-red-500 col-span-full">Failed to load Portfolio.</p>';
+                document.getElementById('projects-container').innerHTML = '<p class="text-red-500 col-span-full">Failed to load from Google Sheets.</p>';
             });
     </script>
 </body>
