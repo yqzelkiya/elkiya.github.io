@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yaqzhan Elkiya | Robotics & Automation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { 400: '#22d3ee', 500: '#06b6d4', 900: '#083344' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-950 text-slate-200 font-sans antialiased selection:bg-brand-500 selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-slate-900/90 backdrop-blur-sm border-b border-slate-800 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold text-brand-400">Yaqzhan Elkiya</a>
+            <div class="space-x-6 text-sm font-medium">
+                <a href="#about" class="hover:text-brand-400 transition">About</a>
+                <a href="#projects" class="hover:text-brand-400 transition">Projects</a>
+                <a href="#skills" class="hover:text-brand-400 transition">Skills</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero / Profile Section -->
+    <section id="about" class="pt-32 pb-16 px-6 max-w-6xl mx-auto">
+        <div class="flex flex-col md:flex-row items-center gap-10">
+            <!-- Ganti src dengan link lh3 foto profilmu dari Google Drive -->
+            <img src="https://ui-avatars.com/api/?name=Yaqzhan+Elkiya&background=0D8ABC&color=fff&size=256" alt="Yaqzhan Elkiya Avatar" class="w-48 h-48 rounded-full border-4 border-brand-500/30 object-cover shadow-xl">
+            
+            <div>
+                <p class="text-brand-400 font-semibold text-sm tracking-wider uppercase mb-2">MSc Robotics Student at UoM | CEO TorjunTech</p>
+                <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4">Yaqzhan Elkiya Muhammad Shah</h1>
+                <p class="text-slate-400 text-lg mb-6 leading-relaxed">
+                    Electronic and Automation Engineer with 2+ years of experience in embedded systems, industrial SCADA/PLC, and autonomous platforms. Focused on Robotics, Automation, and Software to bridge physical hardware with intelligent systems.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="https://github.com/yqzelkiya" target="_blank" class="px-5 py-2.5 rounded bg-slate-800 hover:bg-slate-700 transition text-sm font-medium"><i class="fab fa-github mr-2"></i> GitHub</a>
+                    <a href="https://www.linkedin.com/in/elkiya-yaqzhan/" target="_blank" class="px-5 py-2.5 rounded bg-blue-600/20 text-blue-400 hover:bg-blue-600/30 transition text-sm font-medium"><i class="fab fa-linkedin mr-2"></i> LinkedIn</a>
+                    <a href="https://drive.google.com/file/d/1A-lJb2rFWGpT-n0yU_vUeR5TLDrqzGLc/view" target="_blank" class="px-5 py-2.5 rounded bg-brand-500 text-slate-950 hover:bg-brand-400 transition text-sm font-bold"><i class="fas fa-file-pdf mr-2"></i> Resume</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section (Dynamic from Google Sheets) -->
+    <section id="projects" class="py-16 bg-slate-900/50 border-y border-slate-800">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-2xl font-bold text-white mb-2"><span class="text-brand-400">#</span> Featured Projects</h2>
+            <p class="text-slate-400 text-sm mb-10">Data below is fetched dynamically from my Google Sheet CMS.</p>
+            
+            <!-- Grid Kontainer Project -->
+            <div id="projects-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Loading State -->
+                <div class="col-span-full text-center py-10">
+                    <i class="fas fa-circle-notch fa-spin text-3xl text-brand-500 mb-3"></i>
+                    <p class="text-slate-400">Loading projects from Google Sheets...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-16 px-6 max-w-6xl mx-auto">
+        <h2 class="text-2xl font-bold text-white mb-8"><span class="text-brand-400">#</span> Core Competencies</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-slate-900 p-5 rounded-xl border border-slate-800">
+                <h4 class="text-brand-400 font-semibold mb-3">Robotics & Software</h4>
+                <p class="text-sm text-slate-400 leading-loose">ROS/ROS 2, C/C++, Python, OpenCV, Machine Learning.</p>
+            </div>
+            <div class="bg-slate-900 p-5 rounded-xl border border-slate-800">
+                <h4 class="text-brand-400 font-semibold mb-3">Embedded & Hardware</h4>
+                <p class="text-sm text-slate-400 leading-loose">STM32, CAN Bus, Modbus RS485, PCB Design (KiCad), HIL.</p>
+            </div>
+            <div class="bg-slate-900 p-5 rounded-xl border border-slate-800">
+                <h4 class="text-brand-400 font-semibold mb-3">Industrial Automation</h4>
+                <p class="text-sm text-slate-400 leading-loose">Schneider/Siemens PLCs, SCADA, Yokogawa DCS.</p>
+            </div>
+            <div class="bg-slate-900 p-5 rounded-xl border border-slate-800">
+                <h4 class="text-brand-400 font-semibold mb-3">CAD & Simulation</h4>
+                <p class="text-sm text-slate-400 leading-loose">Autodesk Inventor, Fusion 360, Gazebo, Linux/Ubuntu.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-8 text-center text-slate-500 text-sm border-t border-slate-800">
+        &copy; 2026 Yaqzhan Elkiya. Developed for AERO62520.
+    </footer>
+
+    <!-- Logic Fetch Data dari Google Sheet -->
+    <script>
+        // Menggunakan ID Google Sheet kamu
+        const sheetId = '1SmSOaXpi817iaOiYa5N5K-ZAycT9vFsFf9d2n6FHASY';
+        // URL API gratis untuk konversi Sheet "Projects" menjadi JSON
+        const apiUrl = `https://opensheet.elk.sh/${sheetId}/Projects`;
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById('projects-container');
+                container.innerHTML = ''; // Hapus loading spinner
+
+                data.forEach(project => {
+                    // Mengambil link gambar lh3 (Direct Image URL) atau menggunakan placeholder jika kosong
+                    const imageSrc = project['Direct Image URL (lh3)'] || 'https://via.placeholder.com/600x400/1e293b/06b6d4?text=No+Image';
+                    
+                    // Membuat struktur HTML untuk setiap kartu proyek
+                    const card = document.createElement('div');
+                    card.className = 'bg-slate-900 rounded-xl border border-slate-800 overflow-hidden flex flex-col hover:border-slate-600 transition duration-300';
+                    card.innerHTML = `
+                        <img src="${imageSrc}" alt="${project['Project Title']}" class="w-full h-48 object-cover">
+                        <div class="p-5 flex flex-col flex-grow">
+                            <h3 class="text-lg font-bold text-white mb-2">${project['Project Title']}</h3>
+                            <p class="text-slate-400 text-sm mb-4 flex-grow">${project['Short Description']}</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="text-xs bg-slate-800 text-brand-400 px-2 py-1 rounded border border-slate-700">${project['Key Tech']}</span>
+                            </div>
+                            ${project['External Link'] ? `<a href="${project['External Link']}" target="_blank" class="text-brand-400 text-sm font-semibold hover:underline">View Project <i class="fas fa-arrow-right ml-1 text-xs"></i></a>` : ''}
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                document.getElementById('projects-container').innerHTML = '<p class="text-red-400 col-span-full">Failed to load projects. Please check Google Sheet permissions.</p>';
+            });
+    </script>
+</body>
+</html>
