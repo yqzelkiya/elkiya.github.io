@@ -35,7 +35,6 @@
             content: ''; position: absolute; left: 5px; top: 0; bottom: 0;
             width: 2px; background-color: #06b6d4; opacity: 0.5;
         }
-        /* Style for Image Modal (Lightbox) */
         #image-modal {
             backdrop-filter: blur(5px);
         }
@@ -77,7 +76,7 @@
                     <p class="text-lg text-slate-600 dark:text-slate-400 mb-6 max-w-xl mx-auto lg:mx-0 leading-relaxed">
                         Electronic and Automation Engineer experienced in embedded systems, industrial automation, and autonomous robotics. Bridging physical hardware with intelligent AI systems.
                     </p>
-                    <!-- Tambahan Email Disini -->
+                    <!-- Email Section -->
                     <div class="flex items-center justify-center lg:justify-start gap-2 text-slate-500 dark:text-slate-400 font-medium mb-8">
                         <i class="far fa-envelope text-brand-500"></i>
                         <a href="mailto:yaqzhanelkiya01@gmail.com" class="hover:text-brand-500 transition">yaqzhanelkiya01@gmail.com</a>
@@ -90,10 +89,9 @@
                     </div>
                 </div>
                 <div class="flex-shrink-0 relative">
-                    <!-- Default Initial Avatar, will be replaced by script if GDrive link is valid -->
-                    <div id="avatar-container" class="w-56 h-56 lg:w-80 lg:h-80 rounded-full border-4 border-brand-500/30 overflow-hidden shadow-2xl shadow-brand-500/20 bg-brand-500 flex items-center justify-center text-white text-6xl font-bold">
-                        <img id="hero-avatar" src="https://lh3.googleusercontent.com/d/1tjRk9YSSNdjekA26FVFASpdlNn0PBLGe" alt="Yaqzhan Elkiya" class="w-full h-full object-cover hidden">
-                        <span id="hero-initials">YE</span>
+                    <!-- Avatar Langsung di-load disini menggunakan link lh3 milikmu -->
+                    <div class="w-56 h-56 lg:w-80 lg:h-80 rounded-full border-4 border-brand-500/30 overflow-hidden shadow-2xl shadow-brand-500/25 bg-slate-800">
+                        <img src="https://lh3.googleusercontent.com/d/1tjRk9YSSNdjekA26FVFASpdlNn0PBLGe" alt="Yaqzhan Elkiya" class="w-full h-full object-cover">
                     </div>
                 </div>
             </div>
@@ -266,48 +264,18 @@
             modalCaption.innerText = title;
             modal.classList.remove('hidden');
             modal.classList.add('flex');
-            document.body.style.overflow = 'hidden'; // Prevent scrolling
+            document.body.style.overflow = 'hidden';
         }
 
         closeModal.addEventListener('click', () => {
             modal.classList.add('hidden');
             modal.classList.remove('flex');
-            document.body.style.overflow = 'auto'; // Restore scrolling
+            document.body.style.overflow = 'auto';
             modalImg.src = '';
         });
 
         // 2. Fetch API Setup
         const sheetId = '1SmSOaXpi817iaOiYa5N5K-ZAycT9vFsFf9d2n6FHASY';
-
-        // Fetch Avatar Profile
-        fetch(`https://opensheet.elk.sh/${sheetId}/Profile%20%26%20Bio`)
-            .then(res => res.json())
-            .then(data => {
-                // Cari kolom yg ada isinya link gambar, biasanya opensheet membaca spasi
-                const profile = data[0]; 
-                let avatarLink = profile['Avatar Path'] || profile['Avatar URL'] || profile['Avatar/Picture Path'];
-                
-                // Cari manual di keys jika nama kolomnya beda
-                if(!avatarLink) {
-                    const keys = Object.keys(profile);
-                    const avatarKey = keys.find(k => k.toLowerCase().includes('avatar') || k.toLowerCase().includes('image') || k.toLowerCase().includes('picture'));
-                    if(avatarKey) avatarLink = profile[avatarKey];
-                }
-
-                if (avatarLink && avatarLink.startsWith('http')) {
-                    const imgEl = document.getElementById('hero-avatar');
-                    const initialEl = document.getElementById('hero-initials');
-                    
-                    // Preload gambar untuk mengecek apakah link valid
-                    const tempImg = new Image();
-                    tempImg.onload = function() {
-                        imgEl.src = avatarLink;
-                        imgEl.classList.remove('hidden');
-                        initialEl.classList.add('hidden');
-                    };
-                    tempImg.src = avatarLink;
-                }
-            }).catch(err => console.log("Avatar parsing error", err));
 
         // Fetch Skills
         fetch(`https://opensheet.elk.sh/${sheetId}/Skills Matrix`)
@@ -329,7 +297,7 @@
                 });
             }).catch(e => document.getElementById('skills-container').innerHTML = '<p class="text-red-500 col-span-full">Failed to load skills.</p>');
 
-        // Fetch Resume (Education & Experience)
+        // Fetch Resume
         fetch(`https://opensheet.elk.sh/${sheetId}/Resume`)
             .then(res => res.json())
             .then(data => {
@@ -354,7 +322,7 @@
                 document.getElementById('resume-exp').innerHTML = '<p class="text-red-500">Failed to load.</p>';
             });
 
-        // Fetch Projects & Filtering Logic
+        // Fetch Projects
         let allProjects = [];
         fetch(`https://opensheet.elk.sh/${sheetId}/Projects`)
             .then(res => res.json())
@@ -367,7 +335,6 @@
             const container = document.getElementById('projects-container');
             container.innerHTML = '';
             
-            // Filter logic
             const filtered = filter === 'ALL' 
                 ? allProjects 
                 : allProjects.filter(p => p.Category && p.Category.toUpperCase().includes(filter.toUpperCase()));
@@ -378,17 +345,14 @@
             }
 
             filtered.forEach(project => {
-                // If there's an image URL use it, otherwise use a placeholder
                 const hasImage = !!project['Direct Image URL (lh3)'];
                 const imgUrl = hasImage ? project['Direct Image URL (lh3)'] : 'https://via.placeholder.com/600x400/1e293b/06b6d4?text=No+Image';
                 
-                // Cek apakah ada external link dengan "http", kalau tidak ada tambahkan
                 let extLink = project['External Link'];
                 if(extLink && !extLink.startsWith('http')) {
                     extLink = 'https://' + extLink;
                 }
 
-                // Add cursor-pointer if image exists so user knows they can click it
                 const imgCursorClass = hasImage ? 'cursor-pointer' : '';
 
                 container.innerHTML += `
@@ -412,7 +376,6 @@
             });
         }
 
-        // Active State Button Filter
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 document.querySelectorAll('.filter-btn').forEach(b => {
